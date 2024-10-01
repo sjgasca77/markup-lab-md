@@ -24,7 +24,7 @@ A continuació es descriu el procés general de creació d'un document XML:
 
 3. Una vegada tenim el document ben format, hem de **validar el document XML**, és a dir verificar que la informació que surt en el document XML s'ajusta a una sèrie de regles definides en el document de validació. Per exemple, indicant quins elements i atributs poden aparèixer, quins elements son optatius i quins no. Per exemple, podem definir un document XML per guardar els llibres d'una biblioteca, i definir que per a cada llibre i ha d'haver un element pel titol i un altre pel autor del llibre. En aquest cas parlariem d'un document vàlid. Hi ha dues **tècniques de validació de documents XML**: DTD i els esquemes XML (XSD). 
     * **DTD** és heratada de SGML, molt popular al anys 2000. 
-    * **XSD** és una tecnologia més potent i moderna i és el que veurem principalment en aquest mòdul. XSD és un llenguatge XML.
+    * **XSD** és una tecnologia més potent i actual.És el que veurem principalment en aquest mòdul. XSD és un llenguatge XML.
 
 ## 1.2. Què és i què no és XML.
 
@@ -39,7 +39,7 @@ A continuació es descriu el procés general de creació d'un document XML:
 
 ### Què NO és XML?
 
-* **XML no és un llenguatge de programació**, de forma que no existeixen compiladors de XML que generin executables a partir d'un document XML. Els documents XML es poden generar o llegir des de les aplicaciones que creem. Per exemple, una aplicació d'escriptori pot guardar la seva configuració en format XML. Un compilador genera un arxiu executable pel S.O. mentre que un parser analitza un document i en genera un altre.
+* **XML no és un llenguatge de programació**, de forma que no existeixen compiladors de XML que generin programes executables. Els documents XML es poden generar o llegir des de les aplicaciones que creem. Per exemple, una aplicació d'escriptori pot guardar la seva configuració en format XML. Un compilador genera un arxiu executable pel S.O. mentre que un parser analitza un document i en genera un altre.
 
 * **No és un protocol de comunicacions**, de forma que no enviarà dades per nosaltres a Internet, com tampoc ho fa HTML. Alguns  protocols de comunicacions són HTTP, FTP. Alguns protocols de comunicacions com [SOAP](https://en.wikipedia.org/wiki/SOAP) estan basats en XML.
 

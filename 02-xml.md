@@ -13,7 +13,7 @@ En aquest capítol es descriuen els blocs de construcció del llenguatge de marc
 
 ### 2.1.1. Etiquetes
 
-Les etiquetes delimited els elements, els objectes més comuns a un document XML. També permeten insertar comentaris i instruccions especials. La següent taula resumeix els tipus d'objectes XML juntament amb el símbol utilitzat per representar-lo.
+Les etiquetes delimiten els elements. També permeten insertar comentaris i instruccions especials. La següent taula resumeix els tipus d'objectes XML juntament amb el símbol utilitzat per representar-lo.
 
 | Tipus d'etiquetes XML | Objectiu | Etiqueta | Exemple |
 |--------------------------|----------|---------|---------|
@@ -65,7 +65,7 @@ per ?&gt;.
           <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
     ```
 
-4. L'etiqueta <?xml té els següents paràmetres o *atributs*:
+4. L'etiqueta `<?xml ... ?>` té els següents paràmetres o *atributs*:
 
     4.1. ***version***:  és obligatori, indica les característiques XML que fa servir el document. 
 
@@ -75,7 +75,7 @@ per ?&gt;.
 
 ### 2.1.4. Declaració de tipus de document. Document Type Declaration (DTD)
 
-La secció DTD està delimitada pels caràcters **<!DOCTYPE** i **>** pel tancament. Aquesta secció permet fer vàries coses:
+La secció DTD està delimitada pels caràcters **`<!DOCTYPE`** i pel tancament **`]>`**. Aquesta secció permet fer vàries coses:
 
 * Definir un arxiu extern de validació DTD. Aquest arxiu extern permet validar l'arxiu XML, indicant el nom dels elements, el tipus de dades, l'ordre d'aparició, etc., tal com veurem al [tema 3 (XSD)](/docs/03-xsd.md))
 
@@ -109,10 +109,10 @@ A continuació tenim un exemple de DTD:
 ### 2.1.5.1. Element arrel. 
 
 ```xml
-<reminder>                                      Element arrel
-    &smile;                                     Referencia a l'entitat anterior
+<reminder>                                Element arrel
+    &smile;                               Referencia a l'entitat anterior
     <msg>Be water my friend.</msg>
-</reminder>                                     Fi del element arrel.
+</reminder>                               Fi del element arrel.
 ```
 
 L'arrel és el primer element que trobem després del pròleg. Es fa servir principalment per recòrrer l'arbre XML i per processar la resta de nodes.
@@ -156,7 +156,7 @@ Sortida:
 
 ### 2.1.5.4. Atributs. 
 
-A l'etiqueta d'obertura d'un element podem afegir dades adicionals mitjantçant l'ús d'atribits. Són parells nom-valor amb la següent sintaxi:
+A l'etiqueta d'obertura d'un element podem afegir dades adicionals mitjantçant l'ús d'atributs. Són parells nom-valor amb la següent sintaxi:
 
 ```xml
     <element atribut="valor"> ... </element>
@@ -221,7 +221,7 @@ El texte representa les dades d'un document XML. Pot aparèixer com a contingut 
 
 ### 2.1.5.6. Estructura d'un document XML
 
-La informació a un document XML s'organitza en forma **jeràrquica**, aleshores els elements es relacionen entre ells mitjançant relacions: pares, fills, germans.
+La informació a un document XML s'organitza en forma **jeràrquica**. Els elements es relacionen entre ells com en un arbre genealògic, mitjançant relacions: pares, fills, germans, nets...
 
 ![Estructura document XML](assets/img/2-3-XML-estructura.drawio.png "Estructura document XML")
 
@@ -244,7 +244,7 @@ Els espais en blanc entre elements són ignorats.
 
 ### 2.1.6. Comentaris. 
 
-Els comentaris comencen pels caràcters ``` <!-- ``` i es tanquen amb els caràcters ```-->```. Dintre dels comentaris es pot escriure qualsevol caràcter excepte el doble guió (--) que pot confondre l'analitzador amb una etiqueta de tancament. Els comentaris, com en el cas de la programació, són fonamentals per a la
+Els comentaris comencen pels caràcters `<!--` i es tanquen amb els caràcters `-->`. Dintre dels comentaris es pot escriure qualsevol caràcter excepte el doble guió (--) que confon l'analitzador amb una etiqueta de tancament. Els comentaris, com en el cas de la programació, són fonamentals per a la
 comprensió del document XML, ja que és on explicarem per a que serveix cadascun dels elements. Els comentaris són molt últils quan tornem al nostre document al cap d'un temps o quan l'utilitzen altres programadors. Exemple:
 
 ```xml
@@ -294,7 +294,7 @@ Exemple complet:
 
 ## 2.5. Elements. Regles i consideracions
 
-Per definir els noms dels elements també s'han definit una sèrie de regles molt bàsiques:
+Per definir els noms dels elements.S'han definit una sèrie de regles molt bàsiques:
 
 * Els **elements** poden començar amb una **lletra** (de l'alfabet de qualsevol idioma), **subratllat** o dos **punts** (estan desaconsellats perquè es fan servir pels espais de noms, que veurem a continuació).
 * Els següents caràcters poden ser lletres, dígits, subratllats, guió baix, coma o dos punts (**a-zA-Z / 0-9 / _ / , / ;**).
@@ -342,8 +342,7 @@ Un document XML es diu que està ben format quan segueix les regles establertes 
 
 ## 2.7. Espai de noms
 
-Els noms dels elements XML els escull el desenvolupador. Podem tenir diferents aplicacions que generin elements amb idèntic nom però diferent significat.
-Aquí tenim un codi XML que fa servir l’element title per descriure el títol d’una entrada bibliogràfica:
+A un document XML els noms dels elements XML els escull el desenvolupador. Podem tenir diferents aplicacions que generin elements amb idèntic nom però diferent significat. Aquí tenim un codi XML que fa servir l’element title per descriure el títol d’una entrada bibliogràfica:
 
 ```xml
     <book>
@@ -385,7 +384,7 @@ espai de noms per defecte. Simplement treiem el prefix:
 ```xml
       <element xmlns="URI">
 ```
-En aquest cas, ja no haurem d’afegir el prefix a cada element. Per exemple, per escriure un doment en XHTML:
+En aquest cas, ja no haurem d’afegir el prefix a cada element. Per exemple, per escriure un document en XHTML:
 ```xml
       <?xml version="1.0"?>
       <!-- elements are in the HTML namespace by default -->
@@ -429,7 +428,7 @@ Elements
 ```
 No hi ha regles per definir quan s'ha d'utilitzar un element o un atribut. No obstant, hi ha algunes pautes generals.
 
-Elements:
+**Elements**:
 
 * Representen jerarquíes o continguts uns dintre dels altres.
 * Hi poden haver altres elements dintre d'un element.
@@ -439,7 +438,7 @@ Elements:
 
 És a dir, poden haver diversos elements amb el mateix nom.
 
-Atributs:
+**Atributs**:
 
 * Van associats als elements. Pot haver-hi més d'un per a cada element.
 * Són modificadors de la informació.
@@ -447,7 +446,8 @@ Atributs:
 * L'ordre dels atributs dintre de l'element no és rellevant.
 * No es poden extendre amb altres elements al seu interior.
 * Un atribut no pot tenir diferents valors dintre d'un mateix element.
-* Els atributs es fan servir sovint a HTML, però a XML en general s'ha d'intentar evitar-los.
+
+Els atributs es fan servir sovint a HTML, però a XML en general s'ha d'intentar evitar-los.
 
 ### 2.8.2. Nivell desglossament dades
 
@@ -457,9 +457,9 @@ Els valors de les dades s'han de desglossar al nivell més baix possible. Això 
 
 És una pràctica força habitual posar un valor de dades i les seves unitats en el mateix element, per exemple &lt;length&gt;3cm&lt;/length&gt;. Tanmateix, l'enfocament preferit és tenir un atribut per a les unitats, per exemple &lt;length units="cm"&gt;3&lt;/length&gt;.
 
-L'ús d'un únic valor concatenat és limitant perquè:
+L'ús d'un únic valor concatenat (per exemple "3 cm") és limitant perquè:
 
-* És extremadament complicat de validar. S'ha d'aplicar un patró complicat que hauria de canviar cada vegada que s'afegeix un tipus d'unitat.
+* És extremadament complicat de validar. S'ha d'aplicar un patró que hauria de canviar cada vegada que s'afegeix un tipus d'unitat.
 
 * No es poden realitzar comparacions, conversions ni operacions matemàtiques amb les dades sense dividir-les.
 
@@ -481,27 +481,27 @@ Probablement això sigui excessiu, tret que tingueu una necessitat especial de p
 
 ### 2.9.1. Editors XML
 
-Existeixen moltes eines per a la gestió d'XML i les seves tecnologies associades. Algunes són molt sofisticades i en general amb llicències propietàries, però també tenimi més senzilles, de codi obert i gratuïtes. 
+Existeixen moltes eines per a la gestió d'XML i les seves tecnologies associades. Algunes són molt sofisticades i en general amb llicències propietàries, però també tenim més senzilles, de codi obert i gratuïtes. 
 
-Alguns exemples d'aplicacions comercials:
+Alguns exemples d'**aplicacions comercials**:
 
 - [XML Spy](https://www.altova.com/es/xmlspy-xml-editor)
 
 - [OXygen](https://www.oxygenxml.com/)
 
 
-Per altra banda tenim el següent software Open Source:
+Per altra banda tenim el següent **software de codi obert** (FOSS):
 
 - [XML Copy Editor (multiplataforma)](https://xml-copy-editor.sourceforge.io/)
 
 - [XML Notepad](https://microsoft.github.io/XmlNotepad/)
 
 
-Aquestes eines estan enfocades en el tractament de llenguatges de marques. Alguns editors de propòsit general també poden configurar-se per poder analitzar arxius XML. Alguns dels més coneguts són:
-
-- [Visual Studio Code](https://code.visualstudio.com/)
+Aquestes eines estan enfocades en el tractament de llenguatges de marques. Alguns **IDE (Entorns de desenvolupament)** també poden configurar-se per poder analitzar arxius XML. Alguns dels més coneguts són:
 
 - [VSCodium (multiplataforma) (RECOMENDACIÓ)](https://vscodium.com/)
+
+- [Visual Studio Code](https://code.visualstudio.com/)
 
 
 ### 2.9.2. Analitzadors XML (XML Parser). Validadors XML i XSD.

@@ -232,7 +232,7 @@ Exemples:
       <xs:element name=“tamaño” type=“xs:float”/> <tamaño>1.7E2</tamaño>
 ```
 
-[Built-in datatypes (https://www.w3.org)](https://www.w3.org/TR/xmlschema-2/#built-in-datatypes)
+[Tipus de dades predefinits (https://www.w3.org)](https://www.w3.org/TR/xmlschema-2/#built-in-datatypes)
 
 
 ### 3.2.5. Definició de tipus de dades propis.
@@ -297,7 +297,7 @@ Exemple:
 ```xml
       <xs:attribute name="alias" type="xs:string"/>
       <!-- Ahora podemos usarlo dentro de un elemento nombre -->
-      <nombre alias=”Snake”> Plissken </nombre>
+      <nombre alias="Snake"> Plissken </nombre>
 ```
 
 Un exemple complet:
@@ -309,7 +309,7 @@ Un exemple complet:
 
 Els tipus de dades permeten la validació del contingut dels elements i els valors dels atributs. Poden ser tipus simples (simpleType) o tipus complexes (complexType).
 
-Els elements que tenen assignats tipus simples tenen dades de caràcters, però no tenen elements fills o atributs.
+Els elements que tenen assignats tipus simples tenen dades de caràcters, però no tenen elements fills o atributs. Si tenen fills o atributs, aleshores es consideren tipus complexes.
 
 Els següents elements tenen tipus simple:
 
@@ -325,11 +325,14 @@ Els següents elements tenen tipus complexe:
 
 ```xml
 <tamany sistema="EU">L<tamany>
+
 <comentari>va <b>molt molt</b> gran</comentari>
+
 <tamanysDisponibles>
   <size>10</size>
   <size>2</size>
 </tamanysDisponibles>
+
 ```
 
 Els atributs sempre tipus simple, doncs els atributs no poden tenir elements fills.
@@ -413,7 +416,7 @@ Definicions amb XSD:
 
 ## 3.4. Indicadors
 
-Hi ha set indicadors a XML. Els indicadors especifiquen com s'utilitzen els elements dintre del document XML.
+Hi ha set indicadors a XML. Els indicadors especifiquen com s'utilitzen els elements dintre del document XML (ordre, repeticions, etc.).
 
 ### 3.4.1. Indicadors d'ordre
 
@@ -517,7 +520,7 @@ Podem definir un grup d'elements o atributs, donar-li un nom i fer referència a
 
 Las restriccions a XSD -també anomenades facetes- s'utilizan per a definir un rang de valors acceptable per als elements simples o atributs XML. 
 
-### 1. Restriccions per valors
+### 1. Restriccions per rang de valors
 
 El següent exemple defineix un element anomenat __edat__ amb una restricció. El valor de l'edat no pot ser més petita que 0 o més gran que 120.
 

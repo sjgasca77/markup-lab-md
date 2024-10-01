@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<modl>
+    <head>
+        <meta name="title" content="Water" />
+        <DEFINE name="Hydrogen">
+            <atom radius="0.2" color="1 1 0" />
+        </DEFINE>
+        <DEFINE name="Oxygen">
+            <atom radius="0.5" color="1 0 1" />
+        </DEFINE>
+    </head>
+    <body>
+        <atom id="H0" type="Hydrogen" position="1 0 0" />
+        <atom id="H1" type="Hydrogen" position="0 0 1" />
+        <atom id="O" type="Oxygen" position="0 1 0" />
+        <bond atom1="O" atom2="H0" color="0 0 1" />
+        <bond atom1="O" atom2="H1" color="0 0 1" />
+    </body>
+</modl>

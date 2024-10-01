@@ -16,11 +16,11 @@
 
 - **Enviar informació per la xarxa**. Els servidors web disposen d'interfícies de comunicació (APIs) per comunicar-se amb altres servidors mitjançat l'enviament de fitxers. Aquí es fan servir tecnologies com SOAP (basat en XML) o JSON (té una sintaxi més senzilla que XML, basada en parells clau-valor). 
 
-A continuació es descriu el procés general de creació d'un document XML
+A continuació es descriu el procés general de creació d'un document XML:
 
-1. A XML les **etiquetes no estan predefinides** com a HTML. Cada usuari pot definir les seves etiquetes depenent de l'àmbit al que pertany el document. Hem d'aprendre a definir conceptes que es transformaran en **etiquetes**.
+1. A XML les **etiquetes no estan predefinides** com a HTML. Per tant, cada usuari ha de definir les seves etiquetes depenent de l'àmbit al que pertany el document. En aquesta part és important saber posar nom a l'informació, és a dir 'etiquetar'. Hem d'aprendre a definir conceptes que es transformaran en **etiquetes**.
 
-2. Els llenguatges de marques han de complir una sèrie de regles. Aquestes regles faran que el **document XML sigui correcte sintàcticament o estigui ben format**. Per exemples, les etiquetes s'han d'obrir i tancar en ordre invers, els valors dels atributs han d’anar entre cometes, s'hi poden afegir comentaris, etc.
+2. Els llenguatges de marques han de complir una sèrie de regles. Aquestes regles faran que el **document XML sigui correcte sintàcticament o estigui ben format**. Per exemples, les etiquetes s'han d'obrir i tancar en ordre invers, els valors dels atributs han d’anar entre cometes, etc.
 
 3. Una vegada tenim el document ben format, hem de **validar el document XML**, és a dir verificar que la informació que surt en el document XML s'ajusta a una sèrie de regles definides en el document de validació. Per exemple, indicant quins elements i atributs poden aparèixer, quins elements son optatius i quins no. Per exemple, podem definir un document XML per guardar els llibres d'una biblioteca, i definir que per a cada llibre i ha d'haver un element pel titol i un altre pel autor del llibre. En aquest cas parlariem d'un document vàlid. Hi ha dues **tècniques de validació de documents XML**: DTD i els esquemes XML (XSD). 
     * **DTD** és heratada de SGML, molt popular al anys 2000. 

@@ -14,7 +14,7 @@ Després, anirem a instal·lar la nostra primera extensió a VSCodium. Per tal d
 
 ![](assets/img/2-4-VSCodium-2.png)
 
-## Annex 2. Instalació Saxon SXLT a Visual Studio.
+## Ànnex 2. Instalació Saxon SXLT a Visual Studio.
 
 Per tal de processar els nostres documents XML i generar una sortida amb XSLT necessitem un processador. Per instal.lar el processador Saxon SXLT a Visual Studio Code:
 
@@ -50,3 +50,86 @@ Més informació:
 * [Running SXLT](https://deltaxml.github.io/vscode-xslt-xpath/run-xslt.html)
 
 Aquest document està llicenciat sota els termes de la [Licencia Creative Commons Attribution 4.0 International (CC BY 4.0)](LICENSE.md).
+
+## Ànnex 3. Introducció a JavaScript per a Principiants
+
+JavaScript és un llenguatge de programació que permet afegir interactivitat i dinamisme a les pàgines web. Si alguna vegada has vist un botó que canvia de color en passar-hi el ratolí per sobre, o una finestra emergent que et demana el nom això es pot fer amb JavaScript. A diferència d'altres llenguatges que funcionen al servidor, JavaScript s'executa directament al navegador de l'usuari. cosa que el fa ideal per a la creació d'interfícies interactives.
+
+### Conceptes Bàsics
+
+- **Codi Font**: JavaScript és un llenguatge basat en text, això vol dir que s'escriu en fitxers de text i s'integra a les pàgines web utilitzant etiquetes `<script>`.
+    Exemple:
+
+    ```html
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <script>
+                ...el meu codi Javascript...
+            </script>
+        </head>
+        <body></body>
+    </html>
+    ```
+
+- **Variables**: Les variables són espais on podem guardar informació (nombres, text, etc.) que després podem reutilitzar. Hi ha diverses maneres de declarar variables en JavaScript, però les més comunes són let, const, i var.
+
+    ```javascript
+    let nom = "Joan";  // Una variable que guarda un text
+    const pi = 3.14;   // Una constant que no canviarà el seu valor
+    ```
+
+- **Funcions**: Les funcions són blocs de codi que podem definir una vegada i reutilitzar cada vegada que les cridem. Una funció pot acceptar dades (anomenades "paràmetres") i retornar un resultat.
+
+    ```javascript
+
+    function saludar(nom) {
+        return "Hola, " + nom;
+    }
+    ```
+
+- **Esdeveniments**: JavaScript pot reaccionar a diferents accions de l'usuari, com fer clic en un botó, moure el ratolí o escriure en un camp de text. Aquestes reaccions s'anomenen "esdeveniments".
+
+    ```javascript
+
+        document.getElementById("elMeuBoto").addEventListener("click", 
+        function() {
+            alert("Has fet clic al botó!");
+        }
+        );
+    ```
+
+- **Manipulació del DOM**: El DOM (Document Object Model) és la representació estructural d'una pàgina web que el navegador crea a partir d'un fitxer HTML. JavaScript pot interactuar amb el DOM per a canviar el contingut o l'aparença d'una pàgina sense necessitat de recarregar-la.
+
+    Per exemple, podem canviar el text dins d'un element HTML:
+
+    ```javascript
+        document.getElementById("elMeuText").innerHTML = "Nou text";
+    ```
+
+### Activitat Pràctica
+
+Per posar en pràctica el que hem après, crearem una petita aplicació que canviï el color de fons de la pàgina quan l'usuari faci clic en un botó.
+
+En el teu fitxer HTML, crea un botó i un paràgraf:
+
+```html
+<button id="canviarColor">Canviar color</button>
+<p id="elMeuText">Aquest és un paràgraf.</p>
+```
+
+Ara, escriu el següent codi JavaScript per canviar el color de fons de la pàgina:
+
+```javascript
+    document.getElementById("canviarColor").addEventListener("click", 
+      function() {
+        document.body.style.backgroundColor = "lightblue";
+    });
+```
+
+Aquest codi li diu a JavaScript que esperi que l'usuari faci clic al botó amb l'id canviarColor, i quan això passi, canviarà el color de fons de la pàgina.
+Conclusió
+
+En resum, JavaScript ens permet fer que les pàgines web siguin més dinàmiques i interactives. Amb variables podem emmagatzemar dades, amb funcions podem reutilitzar codi, i gràcies a la manipulació del DOM podem fer canvis visuals i funcionals a la nostra pàgina web en temps real.
+
+Ara estàs preparat per començar a crear aplicacions senzilles utilitzant JavaScript!

@@ -6,7 +6,7 @@
 
 ## 3.1. Esquemes a XML, una introducció (XSD i DTD).
 
-Una vegada el nostre document XML és correcte sintàcticament, veurem com validar-lo. Els esquemes serveixen per a comprobar que un document XML és vàlid respecte a un conjunt de regles ben definit. Donat el següent XML:
+Una vegada el nostre document XML és correcte sintàcticament (està ben format), veurem com validar-lo. Els esquemes serveixen per a comprobar que un document XML és vàlid respecte a un conjunt de regles ben definit. Donat el següent XML:
 
 ```xml
 <llibre isbn="0-2777-6861-6">
@@ -24,13 +24,14 @@ Un esquema permetria validar, per exemple, la següent estructura i regles:
 
 * **Tipus de dades** dels elements i els atributs. Enter, decimal o cadena de texte són alguns exemples. També es poden definir tipus de dades basades en rangs, enumeracions o coincidència de patrons (patterns). Per exemple, podem definir que l'atribut __isbn__ tingui el patró 0-0000-0000-0.
 
-Els esquemes XML poden tenir altres utilitats:
+Els esquemes XML aporten les següents funcionalitats:
 
 * **Servir com a contracte entre empreses que es suministren productes**. Un esquema indica clarament quins elements han d'aparèixer en els documents que rebrà. Per exemple, pot especificar que totes les factures indiquin el NIF de l'empresa a qui es factura.
 
 * **Documentació de sistema**. Permet a qualsevol que vulgui, entendre els noms, atributs i estructura del document XML. També es poden fer anotacions.
 
 * **Incorporació de dades noves** XSD permet incorporar valors per defecte i fixes al document XML. També permet normalitzar els espais en blanc.
+
 
 XML Schema o XSD (XML Schema Definition) permet definir de forma molt precisa el contingut dels documents XML. Existeixen altres llenguatges d'esquema:
 
@@ -74,7 +75,13 @@ Per validar els documents XML, podem fer servir les eines de programació vistes
 
 ## 3.2. Estructura d'un esquema XML.
 
-Per crear un esquema haurem de crear un document amb extensió XSD que validarà el document XML. Per indicar-li a un document XML quin document de validació volem fer servir, afegirem un atribut a l'element arrel del document XML.
+Per crear un esquema XSD seguim els seguents passos:
+
+1. Crear el document XML que volem validar. P. ex.: arxiu.xml.
+2. Crear el document de validació (XSD) en un arxiu apart amb extensió .xsd. P. ex.: arxiu.xsd.
+3. Enllaçar el document XML amb el XSD.
+ 
+Per indicar-li a un document XML quin document de validació volem fer servir, afegirem un atribut a l'element arrel del document XML.
 
 ### 3.2.1. Regles XSD
 
@@ -126,34 +133,73 @@ En l'exemple anterior, a l'arxiu __landrover.xsd__ tindrem les nostres declaraci
 
 Els elements i els atributs són els blocs principals amb els que es construeixen els documents XML. Per tant, el nostre esquema XSD contindrà una declaració per a cada element i cada atribut que hi hagi al document.
 
-Cadascun dels elements i atributs està associat a un __tipus de dades__. XSD separa els conceptes d'element i atributs dels seus tipus de dades. Això permet reutilitzar la mateixa estructura a varis elements idèntics. Per exemple, a un a factura podem tenir dos elements anomenats __direccionEnvio__ i __direccionFacturacion__ que tenen la mateixa estructura pero noms diferents. Només hem de declarar un tipus __TipoDireccion__ i fer-lo servir en la declaració dels elements.
+Cadascun dels elements i atributs està associat a un __tipus de dades__ (veure atribut **type** més endavant). XSD separa els conceptes d'element i atributs dels seus tipus de dades. Això permet reutilitzar la mateixa estructura a varis elements idèntics. Per exemple, a un a factura podem tenir dos elements anomenats __adrecaenviament__ i __adrecafacturacio__ que tenen la mateixa estructura pero noms diferents. Només hem de declarar un tipus __TipoDireccion__ i fer-lo servir en la declaració dels elements.
 
-Els elements han d'incloure com a mínim l'atribut name per especificar el nom de l'element XML i type per especificar el tipus de dades.
+Exemple d'estructura repetida:
+
+```xml
+<factura>
+<capcelera>
+  <shipping_address>
+    <name></name>
+    <street></street>
+    <city></city>
+  </shipping_address>
+
+  <invoice_address>
+    <name></name>
+    <street></street>
+    <city></city>
+  <invoice_address>
+</capcelera>
+<cos></cos>
+</factura>
+```
+
+Els **elements han d'incloure com a mínim** l'**atribut name** per especificar el nom de l'element XML i **type** per especificar el tipus de dades.
 
 Exemples de declaració d'elements a XSD:
-```xml
-<xsd:element name="tamany" type="TamanyTipus"/>
 
+```xml
+<!-- 1 -->
 <xsd:element name="nom" type="xsd:string"/>
 
+<nom>Joan</nom>
+
+<!-- 2 -->
+<xsd:element name="tamany" type="TamanyTipus"/>
+
+<tamany>L</tamany>
+
+<!-- 3 -->
 <xsd:element name="product">
   <xsd:complexType>
     <xsd:sequence>
-      <xsd:element ref="name"/>
-      <xsd:element ref="size"/>
+      <xsd:element name="name"/>
+      <xsd:element name="size"/>
     <xsd:sequence>
   </xsd:complexType>
 </xsd:element>  
 
+<product>
+  <name></name>
+  <size></size>
+</product>
+
+<!-- 4 -->
 <xsd:element name="anything"/>
+
 ```
-El primer element fa servir el tipus __TamanyTipus__ per indicar el tipus de dades de __tamany__. 
 
-També podem definir un tipus de dada especificant __simpleType__ o __complexType__.
+- El primer element s'anomena nom utilitza el tipus predefinit xsd:string. (veure **tipus de dades** més endavant).
 
-Per últim, si no hem especificat cap tipus de dades, el tipus serà __anyType__ que permet qualsevol contingut amb fills o caràcters.
+- El segon element fa servir el tipus __TamanyTipus__ per indicar el tipus de dades de l'element __tamany__. (veure com crear **tipus de dades** més endavant).
 
-Els atributs principals de **&lt;xs:element&gt;**:
+- El tercer exemple mostra com també podem definir un tipus de dada especificant __simpleType__ o __complexType__. En aquest cas l'element està definit com una seqüència d'altres elements.
+
+- Per últim, si no hem especificat cap tipus de dades, el tipus serà __anyType__ que permet qualsevol contingut amb fills o caràcters.
+
+Els atributs principals de **&lt;xs:element&gt;** són els següents:
 
 | nom atribut | propòsit |
 |-------------|----------|
@@ -168,7 +214,7 @@ Els atributs principals de **&lt;xs:element&gt;**:
 
 ### 3.2.4. Tipus de dades
 
-Els tipus de dades més comuns a XSD són:
+Els tipus de dades predefinits més comuns a XSD són:
 
 * xs:string (cadena)
 * xs:decimal (número decimal)
@@ -185,6 +231,50 @@ Exemples:
       <xs:element name=“nombre” type=“xs:string”/> < nombre >Pere Puig</nombre >
       <xs:element name=“tamaño” type=“xs:float”/> <tamaño>1.7E2</tamaño>
 ```
+
+[Built-in datatypes (https://www.w3.org)](https://www.w3.org/TR/xmlschema-2/#built-in-datatypes)
+
+
+### 3.2.5. Definició de tipus de dades propis.
+
+Per crear un tipus de dades nou personalitzat, ho fem en dos passos:
+
+1. Creem la definició del tipus mitjançant <xs:simpleType> o <xs:complexType>.
+2. Definim un element a XSD i li assignem el nou tipus de dades creat.
+
+Per exemple, volem definir un tipus de dades anomenat tipus_samarreta que només pugui contenir els següents valors: M, L, XL, XXL.
+
+<tamany>M</tamany>
+
+El següent fragment XSD crea un tipus personalitzat simple mitjançant l'element **xs:simpleType** (el contingut no te altres elements fills i l'element no té atributs). La restricció tipus **xs:enumeration** defineix uns valors vàlids per a l'element **<tamany>**. Les restriccions (també anomenades facetes) es veuen més endavant i permeten definir tipus de dades.
+
+<!-- pas 1 -->
+<xs:simpleType name="tipus_samarreta">
+  <xs:restriction base="xs:string">
+    <xs:enumeration value="L"/>
+    <xs:enumeration value="M"/>
+    <xs:enumeration value="XL"/>
+    <xs:enumeration value="XXL"/>
+  </xs:restriction>
+</xs:simpleType>
+
+<!-- pas 2 -->
+<xs:element name="tamany" type="tipus_samarreta"/>
+
+
+El següent fragment XSD crea un tipus personalitzat anomenat **tipus_edat** indicant que el valor mínim ha de ser 1.
+
+<edat>23</edat>
+
+<!-- pas 1 -->
+<xs:simpleType name="tipus_edat">
+  <xs:restriction base="xs:integer">
+    <xs:minExclusive value="0"/>
+  </xs:restriction>
+</xs:simpleType>
+
+<!-- pas 2 -->
+<xs:element name="edat" type="tipus_edat"/>
 
 ### 3.2.5. Atributs
 

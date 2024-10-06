@@ -285,12 +285,144 @@ Són equivalents als comentaris, donat que l'analitzador (parser) XML no els pro
 
 ### 2.4.9. Definicions de tipus de document (DTD). Els documents DTD i XSD
 
-Permeten definir regles que imposen restriccions sobre els elements XML. La seva existència no és obligatoria per tal que el document estigui ben format, però si hem d'afegir aquesta línea si volem tenir un document vàlid.
+Els arxius DTD permeten definir regles de creació del document XML. La seva existència no és obligatoria per tal que el document estigui ben format, però si hem d'afegir aquesta línea si volem tenir un document vàlid.
 
-Exemple complet:
+El DTD és la forma de definició de l'esquema d'un document més antigua. Encara hi ha molts documents XML que es validen amb DTD, encara que té les seves limitacions. 
 
-![Exemple XML](assets/img/2-42-exemple-complet.drawio.png "Exemple XML")
+DTD no és un llenguatge XML. No pot fertot el que volem, per exemple comprobar el contingut de les dades.
 
+DTD no pot comprovar que es una data:
+
+```xml
+<data>.</data>
+```
+
+### Definició DTD interna 
+
+Es poden incorporar DTD dintre del propi document DTD
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE process [
+<!ELEMENT process (adress)>
+<!ELEMENT adress (#PCDATA)>
+]>
+<process>
+  <adress>http://www.example.com</adress>
+</process>
+```
+
+És millor fer-los externs, doncs podem compartir-los i separar les dades de la estructura.
+
+### Definició DTD externa
+
+Per definir un DTD extern utilitzem l'etiqueta `<!DOCTYPE >` seguit del nom de l'arrel, la paraula clau `SYSTEM` i el recurs on es troba la definició DTD, que pot ser un fitxer local de la màquina o doctypes a internet
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE alumnes SYSTEM "alumnes.dtd">
+
+<!DOCTYPE alumnes SYSTEM "http://www.example.com/alumnes.dtd"
+```
+
+### Definició d'elements amb DTD
+
+Per definir un element utilitzem la següent definició:
+
+```xml
+<!ELEMENT nom_element contingut>
+```
+
+Exemples:
+
+```xml
+<!ELEMENT nom (#PCDATA)>
+<!ELEMENT cognom (#PCDATA)>
+<!ELEMENT cognom (nom, cognom)>
+```
+
+Un `#PCDATA` indica que l'element només pot tenir dades a dins (no altres elements).
+
+Els elements buits s'especifiquen amb la paraula clau `EMPTY`
+
+```xml
+<element_buit />
+
+<!ELEMENT element_buit EMPTY>
+```
+
+Els elements que contenen altres elements s'indiquen separats per comes. Això vol dir que han d'aparèixer tots els elements obligatòriament. Tenim l'operador '|' que permet tenir alternatives. Per exemple la següent definició: 
+
+```xml
+<!ELEMENT titol (president|treballador)>
+```
+
+Ens permet definir només un títol dels dos, però no els dos a la vegada
+
+```xml
+<titol>
+  <president>John Wood</president>
+</titol>
+
+<!-- o -->
+
+<titol>
+  <treballador>John Wood</treballador>
+</titol>
+```
+
+Podem agrupar els elements de forma flexible, per tant les següents definicions són vàlides:
+
+```xml
+<!ELEMENT cercle (centre, (radi | diametre))>
+
+<!ELEMENT comic (cognom | ( nom,
+((inicials, cognom) | cognom )))>
+
+<!ELEMENT paragraf (#PCDATA | nom | professio |
+marca | data )* >
+```
+
+També podem especificar quantes instàncies de cada element fill pot aparèixer. Això es controla mitjantçat els modificadors de repetició:
+
+| Simbol | Descripció |
+|--------|------------|
+| ?      | Indica que l'element pot ser-hi o no |
+| *      | Indica que l'element pot ser-hi qualsevol número de vegades o no existir |
+| +      | Indica que l'element pot ser-hi mínim ún número de vegades |
+
+
+Per exemple:
+
+El següent DTD valida que hi pugui haver més d'un cognom:
+
+```xml
+<!ELEMENT persona (nom,cognom+)>
+
+<persona>
+  <nom>Xavier</nom>
+  <cognom>Sala</cognom>
+  <cognom>Pujolar</cognom>
+</persona>
+```
+
+### Definició d'atributs amb DTD
+
+Els atributs es defineixen mitjantçant l'etiqueta `<!ATTLIST>`. Per exemple:
+
+Sintaxi:
+
+`<!ATTLIST nom_element nom_atribut tipus_dades modificador>`
+
+```xml
+<!ATTLIST equip posicio ID #REQUIRED>
+<!ATTLIST nom dni NMTOKEN #IMPLIED>
+<!ATTRLIST document versio CDATA #FIXED "1.0">
+```
+
+- #REQUIRED indica que l'atribut és obligatori.
+- #IMPLIED indica que el dni és un atribut opcional.
+- #FIXED indica que l'atribut és "1.0" i no es pot canviar (és una constant).
 
 ## 2.5. Elements. Regles i consideracions
 

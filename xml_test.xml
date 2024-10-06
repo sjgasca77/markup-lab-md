@@ -1,4 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<test>
-
-</test>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE process [
+<!ELEMENT process (adress)>
+<!ELEMENT adress (#PCDATA)>
+]>
+<process>
+  <adress>http://www.example.com</adress>
+</process>

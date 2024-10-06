@@ -297,7 +297,7 @@ DTD no pot comprovar que es una data:
 <data>.</data>
 ```
 
-### Definició DTD interna 
+### 2.4.9.1. Definició DTD interna 
 
 Es poden incorporar DTD dintre del propi document DTD
 
@@ -314,7 +314,7 @@ Es poden incorporar DTD dintre del propi document DTD
 
 És millor fer-los externs, doncs podem compartir-los i separar les dades de la estructura.
 
-### Definició DTD externa
+### 2.4.9.2. Definició DTD externa
 
 Per definir un DTD extern utilitzem l'etiqueta `<!DOCTYPE >` seguit del nom de l'arrel, la paraula clau `SYSTEM` i el recurs on es troba la definició DTD, que pot ser un fitxer local de la màquina o doctypes a internet
 
@@ -325,7 +325,7 @@ Per definir un DTD extern utilitzem l'etiqueta `<!DOCTYPE >` seguit del nom de l
 <!DOCTYPE alumnes SYSTEM "http://www.example.com/alumnes.dtd"
 ```
 
-### Definició d'elements amb DTD
+### 2.4.9.3. Definició d'elements amb DTD
 
 Per definir un element utilitzem la següent definició:
 
@@ -406,7 +406,7 @@ El següent DTD valida que hi pugui haver més d'un cognom:
 </persona>
 ```
 
-### Definició d'atributs amb DTD
+### 2.4.9.4. Definició d'atributs amb DTD
 
 Els atributs es defineixen mitjantçant l'etiqueta `<!ATTLIST>`. Per exemple:
 

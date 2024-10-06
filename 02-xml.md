@@ -283,7 +283,7 @@ Són equivalents als comentaris, donat que l'analitzador (parser) XML no els pro
 </note>
 ```
 
-### 2.4.9. Definicions de tipus de document (DTD). Els documents DTD i XSD
+### 2.4.9. Definició de tipus de document (DTD).
 
 Els arxius DTD permeten definir regles de creació del document XML. La seva existència no és obligatoria per tal que el document estigui ben format, però si hem d'afegir aquesta línea si volem tenir un document vàlid.
 
@@ -301,7 +301,7 @@ DTD no pot comprovar que es una data:
 
 Es poden incorporar DTD dintre del propi document DTD
 
-```xml
+```dtd
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE process [
 <!ELEMENT process (adress)>
@@ -318,7 +318,7 @@ Es poden incorporar DTD dintre del propi document DTD
 
 Per definir un DTD extern utilitzem l'etiqueta `<!DOCTYPE >` seguit del nom de l'arrel, la paraula clau `SYSTEM` i el recurs on es troba la definició DTD, que pot ser un fitxer local de la màquina o doctypes a internet
 
-```xml
+```dtd
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE alumnes SYSTEM "alumnes.dtd">
 
@@ -329,13 +329,13 @@ Per definir un DTD extern utilitzem l'etiqueta `<!DOCTYPE >` seguit del nom de l
 
 Per definir un element utilitzem la següent definició:
 
-```xml
+```dtd
 <!ELEMENT nom_element contingut>
 ```
 
 Exemples:
 
-```xml
+```dtd
 <!ELEMENT nom (#PCDATA)>
 <!ELEMENT cognom (#PCDATA)>
 <!ELEMENT cognom (nom, cognom)>
@@ -345,7 +345,7 @@ Un `#PCDATA` indica que l'element només pot tenir dades a dins (no altres eleme
 
 Els elements buits s'especifiquen amb la paraula clau `EMPTY`
 
-```xml
+```dtd
 <element_buit />
 
 <!ELEMENT element_buit EMPTY>
@@ -353,7 +353,7 @@ Els elements buits s'especifiquen amb la paraula clau `EMPTY`
 
 Els elements que contenen altres elements s'indiquen separats per comes. Això vol dir que han d'aparèixer tots els elements obligatòriament. Tenim l'operador '|' que permet tenir alternatives. Per exemple la següent definició: 
 
-```xml
+```dtd
 <!ELEMENT titol (president|treballador)>
 ```
 
@@ -373,7 +373,7 @@ Ens permet definir només un títol dels dos, però no els dos a la vegada
 
 Podem agrupar els elements de forma flexible, per tant les següents definicions són vàlides:
 
-```xml
+```dtd
 <!ELEMENT cercle (centre, (radi | diametre))>
 
 <!ELEMENT comic (cognom | ( nom,
@@ -396,7 +396,7 @@ Per exemple:
 
 El següent DTD valida que hi pugui haver més d'un cognom:
 
-```xml
+```dtd
 <!ELEMENT persona (nom,cognom+)>
 
 <persona>
@@ -414,15 +414,15 @@ Sintaxi:
 
 `<!ATTLIST nom_element nom_atribut tipus_dades modificador>`
 
-```xml
+```dtd
 <!ATTLIST equip posicio ID #REQUIRED>
 <!ATTLIST nom dni NMTOKEN #IMPLIED>
 <!ATTRLIST document versio CDATA #FIXED "1.0">
 ```
 
-- #REQUIRED indica que l'atribut és obligatori.
-- #IMPLIED indica que el dni és un atribut opcional.
-- #FIXED indica que l'atribut és "1.0" i no es pot canviar (és una constant).
+- `#REQUIRED` indica que l'atribut és obligatori.
+- `#IMPLIED` indica que el dni és un atribut opcional.
+- `#FIXED` indica que l'atribut és "1.0" i no es pot canviar (és una constant).
 
 ## 2.5. Elements. Regles i consideracions
 

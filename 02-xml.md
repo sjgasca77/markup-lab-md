@@ -77,7 +77,7 @@ per ?&gt;.
 
 La secció DTD està delimitada pels caràcters **`<!DOCTYPE`** i pel tancament **`]>`**. Aquesta secció permet fer vàries coses:
 
-* Definir un arxiu extern de validació DTD. Aquest arxiu extern permet validar l'arxiu XML, indicant el nom dels elements, el tipus de dades, l'ordre d'aparició, etc., tal com veurem al [tema 3 (XSD)](/docs/03-xsd.md))
+* Definir un arxiu extern de validació DTD. Aquest arxiu extern permet validar l'arxiu XML, indicant el nom dels elements, el tipus de dades, l'ordre d'aparició, etc., tal com veurem al [tema 3 (XSD)](03-xsd.md))
 
 * Declarar variables i valors per defecte (constants).
 

@@ -92,26 +92,26 @@ Un esquema XML és un document XML que ha de complir les següents regles:
 * L'espai de noms ha de ser [http://www.w3.org.2001/XMLSchema](http://www.w3.org.2001/XMLSchema). Es pot no usar prefixe, utilitzar xs o xsd:
 
   ```xml
-        <?xml versión="1.0"?>
-        <xs:schema xmnls:xs ="http://www.w3.org.2001/XMLSchema">
-        .....
-        </xs:schema>
+  <?xml versión="1.0"?>
+  <xs:schema xmnls:xs ="http://www.w3.org.2001/XMLSchema">
+  .....
+  </xs:schema>
   ```      
 
 * Igual que a DTD, el primer que hem de fer és declarar l'element arrel del nostre XML. La sintaxi de **xs:element** seria:
 
   ```xml
-      <xs:element name = "nom-element-arrel">
+  <xs:element name = "nom-element-arrel">
   ```
 
   Aquest element conté l'atribut name que defineix l'element arrel del document. XSD permet tenir més d'un element arrel al nostre esquema. 
 
   ```xml
-        <?xml versión="1.0"?>
-          <xs:schema xmlns:xs ="http://www.w3.org.2001/XMLSchema">
-          <xs:element name="cotxe" />
-          <xs:element name="vaixell" />
-        </xs:schema>
+  <?xml versión="1.0"?>
+    <xs:schema xmlns:xs ="http://www.w3.org.2001/XMLSchema">
+    <xs:element name="cotxe" />
+    <xs:element name="vaixell" />
+  </xs:schema>
   ```        
 
 * L'ordre en que es declaren els elements (anomenats **components** a XSD) no és rellevant.
@@ -121,10 +121,10 @@ Un esquema XML és un document XML que ha de complir les següents regles:
 * Per a vincular un esquema amb un document XML hem d'afegir l'atribut __noNamespaceSchemaLocation__ a l'element arrel **del nostre document XML**:
 
 ```xml
-      <?xml version = “1.0” encoding = “UTF-8”?>
-      <arrel xmlns:xsi=”http://www.w3.org/2001/XMLSchema-instance” xsi:noNamespaceSchemaLocation = “landrover.xsd”>
-        ...
-      </arrel>
+<?xml version = “1.0” encoding = “UTF-8”?>
+<arrel xmlns:xsi=”http://www.w3.org/2001/XMLSchema-instance” xsi:noNamespaceSchemaLocation = “landrover.xsd”>
+  ...
+</arrel>
 ```
 
 En l'exemple anterior, a l'arxiu __landrover.xsd__ tindrem les nostres declaracions XSD. Els blocs principals d'un esquema XSD són **xs:element** i **xs:attribute**, que veurem a continuació.
@@ -188,7 +188,6 @@ Exemples de declaració d'elements a XSD:
 
 <!-- 4 -->
 <xsd:element name="anything"/>
-
 ```
 
 - El primer element s'anomena nom utilitza el tipus predefinit xsd:string. (veure **tipus de dades** més endavant).
@@ -226,28 +225,31 @@ Els tipus de dades predefinits més comuns a XSD són:
 Exemples:
 
 ```xml
-      <xs:element name=“dia” type=“xs:date” /> <dia>2011-09-15</dia>
-      <xs:element name=“altura” type=“xs:integer”/> <altura>220</ altura >
-      <xs:element name=“nombre” type=“xs:string”/> < nombre >Pere Puig</nombre >
-      <xs:element name=“tamaño” type=“xs:float”/> <tamaño>1.7E2</tamaño>
+      <xs:element name="dia" type="xs:date" /> <dia>2011-09-15</dia>
+      <xs:element name="altura" type="xs:integer"/> <altura>220</altura>
+      <xs:element name="nombre" type="xs:string"/> <nombre>Pere Puig</nombre>
+      <xs:element name="tamaño" type="xs:float"/> <tamany>1.7E2</tamany>
 ```
 
-[Tipus de dades predefinits (https://www.w3.org)](https://www.w3.org/TR/xmlschema-2/#built-in-datatypes)
+[Tipus de dades predefinits a XSD (https://www.w3.org)](https://www.w3.org/TR/xmlschema-2/#built-in-datatypes)
 
 
 ### 3.2.5. Definició de tipus de dades propis.
 
 Per crear un tipus de dades nou personalitzat, ho fem en dos passos:
 
-1. Creem la definició del tipus mitjançant <xs:simpleType> o <xs:complexType>.
+1. Creem la definició del tipus mitjançant `<xs:simpleType>` o `<xs:complexType>`.
 2. Definim un element a XSD i li assignem el nou tipus de dades creat.
 
 Per exemple, volem definir un tipus de dades anomenat tipus_samarreta que només pugui contenir els següents valors: M, L, XL, XXL.
 
+```xml
 <tamany>M</tamany>
+```
 
 El següent fragment XSD crea un tipus personalitzat simple mitjançant l'element **xs:simpleType** (el contingut no te altres elements fills i l'element no té atributs). La restricció tipus **xs:enumeration** defineix uns valors vàlids per a l'element **<tamany>**. Les restriccions (també anomenades facetes) es veuen més endavant i permeten definir tipus de dades.
 
+```xsd
 <!-- pas 1 -->
 <xs:simpleType name="tipus_samarreta">
   <xs:restriction base="xs:string">
@@ -260,10 +262,11 @@ El següent fragment XSD crea un tipus personalitzat simple mitjançant l'elemen
 
 <!-- pas 2 -->
 <xs:element name="tamany" type="tipus_samarreta"/>
-
+```
 
 El següent fragment XSD crea un tipus personalitzat anomenat **tipus_edat** indicant que el valor mínim ha de ser 1.
 
+```xsd
 <edat>23</edat>
 
 <!-- pas 1 -->
@@ -275,6 +278,7 @@ El següent fragment XSD crea un tipus personalitzat anomenat **tipus_edat** ind
 
 <!-- pas 2 -->
 <xs:element name="edat" type="tipus_edat"/>
+```
 
 ### 3.2.5. Atributs
 
@@ -295,9 +299,9 @@ Atributs principals de **&lt;xs:attribute&gt;**:
 Exemple:
 
 ```xml
-      <xs:attribute name="alias" type="xs:string"/>
-      <!-- Ahora podemos usarlo dentro de un elemento nombre -->
-      <nombre alias="Snake"> Plissken </nombre>
+  <xs:attribute name="alias" type="xs:string"/>
+  <!-- Ahora podemos usarlo dentro de un elemento nombre -->
+  <nombre alias="Snake"> Plissken </nombre>
 ```
 
 Un exemple complet:
@@ -332,7 +336,6 @@ Els següents elements tenen tipus complexe:
   <size>10</size>
   <size>2</size>
 </tamanysDisponibles>
-
 ```
 
 Els atributs sempre tipus simple, doncs els atributs no poden tenir elements fills.
@@ -340,14 +343,15 @@ Els atributs sempre tipus simple, doncs els atributs no poden tenir elements fil
 Per declarar l’element &lt;tamanysDisponibles&gt; amb XSD:
 
 ```xml
-    <xs:element name="tamanysDisponibles">
-      <xs:complexType>
-        <xs:sequence>
-          <xs:element maxOccurs="unbound" name="size" type="xs:integer"/>
-        </xs:sequence>
-      </xs:complexType>
-    </xs:element>
+<xs:element name="tamanysDisponibles">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element maxOccurs="unbound" name="size" type="xs:integer"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
 ```
+
 ## 3.3.1 Tipus complexes
 
 El contingut d'un element són els caràcters de dades i elements fills dintre de les etiquetes. Hi ha __cuatre__ tipus de contingut per a tipus complexes: simple, element, mixed i buit. El tipus de contingut és independent dels atributs. És a dir tots els tipus de contingut poden tenir atributs o no.
@@ -375,44 +379,41 @@ Definicions amb XSD:
 
 ```xml
 <!--1 -->
-      <xs:element name="tamany">
-        <xs:complexType>
-          <xs:simpleContent>
-            <xs:extension base="xs:string">
-              <xs:attribute name="sistema" type="xs:string"></xs:attribute>
-            </xs:extension>
-          </xs:simpleContent>
-        </xs:complexType>
+<xs:element name="tamany">
+  <xs:complexType>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="sistema" type="xs:string"></xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
 
 <!--2 -->
-      <xs:element name="tamany">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element name="numero" type="xs:string"/>
-            <xs:element name="tamany" type="xs:integer"/>
-          </xs:sequence>          
-        </xs:complexType>
-      </xs:element>  
+<xs:element name="tamany">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element name="numero" type="xs:string"/>
+      <xs:element name="tamany" type="xs:integer"/>
+    </xs:sequence>          
+  </xs:complexType>
+</xs:element>  
 
 <!--3 -->
-      <xs:element name="carta">
-        <xs:complexType mixed="true">
-          <xs:sequence>
-            <xs:element name="nomClient"></xs:element>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
+<xs:element name="carta">
+  <xs:complexType mixed="true">
+    <xs:sequence>
+      <xs:element name="nomClient"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
 
 <!--4 -->
-      <xs:element name="color">
-        <xs:complexType>
-          <xs:attribute name="valor" type="TipusColorValors"/>
-        </xs:complexType>
-      </xs:element>
-
+<xs:element name="color">
+  <xs:complexType>
+    <xs:attribute name="valor" type="TipusColorValors"/>
+  </xs:complexType>
+</xs:element>
 ```
-
-
 
 ## 3.4. Indicadors
 
@@ -428,45 +429,44 @@ L'indicador sequence s'utilitza per indicar l'ordre dels elements (si apareixen)
 Exemple:
 
 ```xml
-      <xs:element name="employee">
-      <xs:complexType >
-        <xs:sequence>
-          <xs:element name="firstname" type="xs:string"/>
-          <xs:element name="lastname" type="xs:string"/>
-          <xs:element name="registration-date" type="xs:"/>
-        </xs:sequence>
-      </xs:complexType>
-      </xs:element>
+<xs:element name="employee">
+<xs:complexType >
+  <xs:sequence>
+    <xs:element name="firstname" type="xs:string"/>
+    <xs:element name="lastname" type="xs:string"/>
+    <xs:element name="registration-date" type="xs:"/>
+  </xs:sequence>
+</xs:complexType>
+</xs:element>
 ```
 
 **All**
 L'indicador all es comporta com el seqüence, excepte que no es necessari que surtin tots els elements ni en el mateix ordre. Si surten, només poden sortir un cop.
 
 ```xml
-      <xsd:element name="samarreta">
-        <xsd:complexType>
-          <xsd:all>
-            <xsd:element name="color" type="xsd:string"/>
-            <xsd:element name="tamany" type="tamanys-roba"/>
-          </xsd:all>
-        </xsd:complexType>
-      </xsd:element>
+<xsd:element name="samarreta">
+  <xsd:complexType>
+    <xsd:all>
+      <xsd:element name="color" type="xsd:string"/>
+      <xsd:element name="tamany" type="tamanys-roba"/>
+    </xsd:all>
+  </xsd:complexType>
+</xsd:element>
 ```
 
 **Choice**
 L'indicador choice declara un grup d'elements del qual només sortirà un al document XML
 
 ```xml
-      <xs:element name="vehicle-motor">
-      <xs:complexType >
-        <xs:sequence>
-          <xs:element name="cotxe" type="xs:string"/>
-          <xs:element name="moto" type="xs:string"/>
-          <xs:element name="camio" type="xs:string"/>
-        </xs:sequence>
-      </xs:complexType>
-      </xs:element>
-
+<xs:element name="vehicle-motor">
+<xs:complexType >
+  <xs:sequence>
+    <xs:element name="cotxe" type="xs:string"/>
+    <xs:element name="moto" type="xs:string"/>
+    <xs:element name="camio" type="xs:string"/>
+  </xs:sequence>
+</xs:complexType>
+</xs:element>
 ```
 
 
@@ -479,15 +479,15 @@ Els indicadors **maxOccurs** i **minOccurs** es poden utilitzar com a atributs d
 Exemples:
 
 ```xml
-      <xs:element name="book" maxOccurs="unbounded">
-      <xs:complexType >
-        <xs:sequence>
-          <xs:element name="cotxe" type="xs:string"/>
-          <xs:element name="moto" type="xs:string"/>
-          <xs:element name="camio" type="xs:string"/>
-        </xs:sequence>
-      </xs:complexType>
-      </xs:element>
+<xs:element name="book" maxOccurs="unbounded">
+<xs:complexType >
+  <xs:sequence>
+    <xs:element name="cotxe" type="xs:string"/>
+    <xs:element name="moto" type="xs:string"/>
+    <xs:element name="camio" type="xs:string"/>
+  </xs:sequence>
+</xs:complexType>
+</xs:element>
 ```
 
 Dintre d'aquests indicadors podem fer servir un valor numèric o __unbounded__ que indica un número il.limitat d'elements.
@@ -498,22 +498,22 @@ Dintre d'aquests indicadors podem fer servir un valor numèric o __unbounded__ q
 Podem definir un grup d'elements o atributs, donar-li un nom i fer referència al grup desde una altra definició. Exemple
 
 ```xml
-      <xs:group name="persona-grup">
-        <xs:sequence>
-          <xs:element name="nom" type="xs:string"/>
-          <xs:element name="cognom" type="xs:string"/>
-          <xs:element name="data-naixement" type="xs:date"/>
-        </xs:sequence>
-      </xs:group>
+<xs:group name="persona-grup">
+  <xs:sequence>
+    <xs:element name="nom" type="xs:string"/>
+    <xs:element name="cognom" type="xs:string"/>
+    <xs:element name="data-naixement" type="xs:date"/>
+  </xs:sequence>
+</xs:group>
 
-      <xs:element name="person" type="personinfo"/>
+<xs:element name="person" type="personinfo"/>
 
-      <xs:complexType name="personinfo">
-        <xs:sequence>
-          <xs:group ref="persona-group"/>
-          <xs:element name="country" type="xs:string"/>
-        </xs:sequence>
-      </xs:complexType> 
+<xs:complexType name="personinfo">
+  <xs:sequence>
+    <xs:group ref="persona-group"/>
+    <xs:element name="country" type="xs:string"/>
+  </xs:sequence>
+</xs:complexType> 
 ```
 
 ## 3.5. Facetes
@@ -525,14 +525,14 @@ Las restriccions a XSD -també anomenades facetes- s'utilizan per a definir un r
 El següent exemple defineix un element anomenat __edat__ amb una restricció. El valor de l'edat no pot ser més petita que 0 o més gran que 120.
 
 ```xml
-    <xs:element name="edat">
-      <xs:simpleType>
-        <xs:restriction base="xs:integer">
-          <xs:minInclusive value="0"/>
-          <xs:maxInclusive value="120"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:element>
+<xs:element name="edat">
+  <xs:simpleType>
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="120"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:element>
 ```
 
 ### 2. Restriccions per una sèrie de valors
@@ -540,28 +540,28 @@ El següent exemple defineix un element anomenat __edat__ amb una restricció. E
 Per limitar el contingunt d'un element XML a una sèrie acceptable de valors, farem servir la restricció d'enumeració. L'exemple que ve a continuació defineix un element anomenat __cotxe__ amb una restricció. Els únics valors acceptables son: Audi, Golf, BMW.
 
 ```xml
-    <xs:element name="cotxe">
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="Audi"/>
-          <xs:enumeration value="Golf"/>
-          <xs:enumeration value="BMW"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:element>
+<xs:element name="cotxe">
+  <xs:simpleType>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Audi"/>
+      <xs:enumeration value="Golf"/>
+      <xs:enumeration value="BMW"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:element>
 ```
 
 L'exemple de dalt també es pot escrire com segueix:
 
 ```xml
-    <xs:element name="car" type="carType"/>
-      <xs:simpleType name="carType">
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="Audi"/>
-          <xs:enumeration value="Golf"/>
-          <xs:enumeration value="BMW"/>
-        </xs:restriction>
-    </xs:simpleType>
+<xs:element name="car" type="carType"/>
+  <xs:simpleType name="carType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Audi"/>
+      <xs:enumeration value="Golf"/>
+      <xs:enumeration value="BMW"/>
+    </xs:restriction>
+</xs:simpleType>
 ```
 
 Nota: En aquest cas el tipus "carType" es pot fer servir en altres elements perquè no és part de l'element "car".
@@ -572,61 +572,61 @@ Per limitar el contingut d'un element XML per a definir una sèrie de números o
 L'exemple següent defineix un element anomenat "letter" amb una restricció, que consisteix en contenir UNA lletra MINÚSCULA (de a fins a z).
 
 ```xml
-    <xs:element name="letter">
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:pattern value="[a-z]"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:element>
+<xs:element name="letter">
+  <xs:simpleType>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[a-z]"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:element>
 ```    
 
 En el següent exemple només s'admeten **tres** lletres majúscules (a fins z):
 
 ```xml
-    <xs:element name="initials">
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:pattern value="[A-Z][A-Z][A-Z]"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:element>
+<xs:element name="initials">
+  <xs:simpleType>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Z][A-Z][A-Z]"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:element>
 ```
 
 En el següent exemple només s'admeten tres lletres **majúscules o minúscules**:
 
 ```xml
-    <xs:element name="initials">
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:pattern value="[a-zA-Z][a-zA-Z][a-zA-Z]"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:element>
+<xs:element name="initials">
+  <xs:simpleType>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[a-zA-Z][a-zA-Z][a-zA-Z]"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:element>
 ```
 
 En el següent exemple només s'admet **una** de les següents lletres x, y o z:
 
 ```xml
-    <xs:element name="choice">
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:pattern value="[xyz]"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:element>
+<xs:element name="choice">
+  <xs:simpleType>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[xyz]"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:element>
 ```
 
 Només s'accepten **cinc** digits en seqüència, cada dígit ha d'estar en el rang 0 fins a 9.
 
 ```xml
-    <xs:element name="prodid">
-      <xs:simpleType>
+<xs:element name="prodid">
+  <xs:simpleType>
     <xs:restriction base="xs:integer">
-    <xs:pattern value="[0-9][0-9][0-9][0-9][0-9]"/>
+      <xs:pattern value="[0-9][0-9][0-9][0-9][0-9]"/>
     </xs:restriction>
-    </xs:simpleType>
-    </xs:element>
+  </xs:simpleType>
+</xs:element>
 ```
 
 ###  4. Restriccions amb els caràcters "white-space"
@@ -635,37 +635,37 @@ Per especificar com es tracten els caràcters "white-space", farem servir la res
 El següent exemple defineix un element anomenat "address" amb una restricció. La restricció está establerta a "preserve", que vol dir que el processador XML no esborrarà cap caracter "white-space" (espais, tabuladors, noves línees i retorns de carro).
 
 ```xml
-    <xs:element name="address">
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:whiteSpace value="preserve"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:element>
+<xs:element name="address">
+  <xs:simpleType>
+    <xs:restriction base="xs:string">
+      <xs:whiteSpace value="preserve"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:element>
 ```
 
 Aquest exemple utilitza **replace**, que reemplaça els caràcters **whiteSpace** amb espais:
 
 ```xml
-    <xs:element name="address">
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:whiteSpace value="replace"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:element>
+<xs:element name="address">
+  <xs:simpleType>
+    <xs:restriction base="xs:string">
+      <xs:whiteSpace value="replace"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:element>
 ```
 
 Aquest exemple utilitza **collapse**, que esborra tots els caràcters **whiteSpace**. Els espais en blanc múltiples es redueixen a un únic espai en blanc:
 
 ```xml
-    <xs:element name="address">
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:whiteSpace value="collapse"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:element>
+<xs:element name="address">
+  <xs:simpleType>
+    <xs:restriction base="xs:string">
+      <xs:whiteSpace value="collapse"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:element>
 ```
 
 ### 5. Restriccions de tamany
@@ -675,26 +675,26 @@ Per a limitar la longitud d'un valor en un element farem servir les restriccions
 L'exemple següent defineix un element "password" amb la restricció que el valor ha de ser exactament de vuit caràcters:
 
 ```xml
-    <xs:element name="password">
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:length value="8"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:element>
+<xs:element name="password">
+  <xs:simpleType>
+    <xs:restriction base="xs:string">
+      <xs:length value="8"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:element>
 ```
 
 Aquest exemple defineix altre element "password" amb una restricció. El valor ha de tenir mínim cinc caràcters i un màxim de vuit.
 
 ```xml
-    <xs:element name="password">
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:minLength value="5"/>
-          <xs:maxLength value="8"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:element>
+<xs:element name="password">
+  <xs:simpleType>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="5"/>
+      <xs:maxLength value="8"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:element>
 ```
 
 ### 6. Restriccions disponibles per als tipus de dades
@@ -720,49 +720,49 @@ Aquest exemple defineix altre element "password" amb una restricció. El valor h
 El següent exemple defineix un element anomenat "letter" amb una restricció. Els valors acceptables són zero o més ocurrències de lletres en minúscula de la a a la z:
 
 ```xml
-    <xs:element name="letter">
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:pattern value="([a-z])*"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:element>
+<xs:element name="letter">
+  <xs:simpleType>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="([a-z])*"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:element>
 ```
 
 El següent exemple defineix un element anomenat "letter" amb una restricció. Els valors acceptables són un o més parells de lletres, cada parell format per una minúscula seguit d'una majúscula. Per exemple, "sToP" es validaria correctament amb aquest patró, però no les cadenes de caràcters "Stop", "STOP" or "stop".
 
 ```xml
-    <xs:element name="letter">
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:pattern value="([a-z][A-Z])+"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:element>
+<xs:element name="letter">
+  <xs:simpleType>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="([a-z][A-Z])+"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:element>
 ```
 
 El següent exemple defineix un element anomenat "genere" amb una restricció. Els únics valors acceptables són home o dona:
 
 ```xml
-  <xs:element name="genere">
-    <xs:simpleType>
-      <xs:restriction base="xs:string">
-        <xs:pattern value="home|dona"/>
-      </xs:restriction>
-    </xs:simpleType>
-  </xs:element>
+<xs:element name="genere">
+  <xs:simpleType>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="home|dona"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:element>
 ```
 
 El següent exemple defineix un element "password" amb una restricció. Ha d'haver exactament vuit caràcters seguits que poden ser lletres de la a a la z en (minúscula o majúscula) o un número del 0 al 9.
 
 ```xml
-  <xs:element name="password">
-    <xs:simpleType>
-      <xs:restriction base="xs:string">
-        <xs:pattern value="[a-zA-Z0-9]{8}"/>
-      </xs:restriction>
-    </xs:simpleType>
-  </xs:element>
+<xs:element name="password">
+  <xs:simpleType>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[a-zA-Z0-9]{8}"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:element>
 ```
 
 Aquest document està llicenciat sota els termes de la [Licencia Creative Commons Attribution 4.0 International (CC BY 4.0)](LICENSE.md).

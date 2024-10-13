@@ -420,9 +420,29 @@ Sintaxi:
 <!ATTRLIST document versio CDATA #FIXED "1.0">
 ```
 
+Els atributs poden tenir els següents tipus de dades:
+
+| Tipus   | Descripcio |
+|---------|-------|
+| CDATA 	| El valor són dades caràcters
+| (en1|en2|..) | El valor ha de ser un de la llista enumerada
+| ID 	| El valor ha de ser un id únic (Ha de començar per lletra)
+| IDREF | El valor és l'id d'altre element
+| IDREFS 	| El valor és una llista d'ids d'altres elements
+| NMTOKEN |	El valor és un nom XML vàlid
+| NMTOKENS | El valor és un llistat de noms XML vàlids
+| ENTITY | El valor és una entitat
+| ENTITIES | El valor és una llista d'entitats 
+| NOTATION | El valor és una notació
+| xml: 	| El valor és un valor predefinit d'XML
+
+Els modificadors següents indiquen l'obligatorietat de l'atribut:
+
 - `#REQUIRED` indica que l'atribut és obligatori.
 - `#IMPLIED` indica que el dni és un atribut opcional.
 - `#FIXED` indica que l'atribut és "1.0" i no es pot canviar (és una constant).
+
+
 
 ## 2.5. Elements. Regles i consideracions
 

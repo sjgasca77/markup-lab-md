@@ -204,10 +204,10 @@ Els tipus de dades predefinits més comuns a XSD són:
 Exemples:
 
 ```xml
-      <xs:element name="dia" type="xs:date" /> <dia>2011-09-15</dia>
-      <xs:element name="altura" type="xs:integer"/> <altura>220</altura>
-      <xs:element name="nombre" type="xs:string"/> <nombre>Pere Puig</nombre>
-      <xs:element name="tamaño" type="xs:float"/> <tamany>1.7E2</tamany>
+  <xs:element name="dia" type="xs:date" /> <dia>2011-09-15</dia>
+  <xs:element name="altura" type="xs:integer"/> <altura>220</altura>
+  <xs:element name="nombre" type="xs:string"/> <nombre>Pere Puig</nombre>
+  <xs:element name="tamaño" type="xs:float"/> <tamany>1.7E2</tamany>
 ```
 
 [Tipus de dades predefinits a XSD (https://www.w3.org)](https://www.w3.org/TR/xmlschema-2/#built-in-datatypes)
@@ -228,7 +228,7 @@ Per exemple, volem definir un tipus de dades anomenat tipus_samarreta que només
 
 El següent fragment XSD crea un tipus personalitzat simple mitjançant l'element **xs:simpleType** (el contingut no te altres elements fills i l'element no té atributs). La restricció tipus **xs:enumeration** defineix uns valors vàlids per a l'element **<tamany>**. Les restriccions (també anomenades facetes) es veuen més endavant i permeten definir tipus de dades.
 
-```xsd
+```xml
 <!-- pas 1 -->
 <xs:simpleType name="tipus_samarreta">
   <xs:restriction base="xs:string">
@@ -249,7 +249,7 @@ El següent fragment XSD crea un tipus personalitzat simple mitjançant l'elemen
 
 El següent fragment XSD crea un tipus personalitzat anomenat **tipus_edat** indicant que el valor mínim ha de ser 1.
 
-```xsd
+```xml
 <!-- pas 1 -->
 <xs:simpleType name="tipus_edat">
   <xs:restriction base="xs:integer">
@@ -284,9 +284,9 @@ Atributs principals de **&lt;xs:attribute&gt;**:
 Exemple:
 
 ```xml
-  <xs:attribute name="alias" type="xs:string"/>
-  <!-- Ahora podemos usarlo dentro de un elemento nombre -->
-  <nombre alias="Snake"> Plissken </nombre>
+<xs:attribute name="alias" type="xs:string"/>
+<!-- Ahora podemos usarlo dentro de un elemento nombre -->
+<nombre alias="Snake"> Plissken </nombre>
 ```
 
 Un exemple complet:
@@ -345,46 +345,48 @@ El contingut d'un element són els caràcters de dades i elements fills dintre d
 
 A continuació tenim un exemple de cadascun i com definir-los a XSD.
 
+- Simple:
+
+  ```xml
+  <tamany sistema="EU">10</size>
+  ```
+
+  Definició amb XSD:
+
+  ```xml
+  <xs:element name="tamany">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="sistema" type="xs:string"></xs:attribute>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  ```
+
+- Element:
+  ```xml
+  <producte>
+    <numero>34D</numero>
+    <tamany>10</tamany>
+  </producte>
+  ```
+
+  Definició amb XSD:
+
+  ```xml
+  <xs:element name="producte">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="numero" type="xs:string"/>
+        <xs:element name="tamany" type="xs:integer"/>
+      </xs:sequence>          
+    </xs:complexType>
+  </xs:element>  
+  ```
+
+- Mixed (contingut mixte):
 ```xml
-<!--1 Simple -->
-<tamany sistema="EU">10</size>
-```
-
-Definició amb XSD:
-
-```xml
-<xs:element name="tamany">
-  <xs:complexType>
-    <xs:simpleContent>
-      <xs:extension base="xs:string">
-        <xs:attribute name="sistema" type="xs:string"></xs:attribute>
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-```
-
-```xml
-<!--2 Element -->
-<producte>
-  <numero>34D</numero>
-  <tamany>10</tamany>
-</producte>
-```
-
-Definició amb XSD:
-
-```xml
-<xs:element name="producte">
-  <xs:complexType>
-    <xs:sequence>
-      <xs:element name="numero" type="xs:string"/>
-      <xs:element name="tamany" type="xs:integer"/>
-    </xs:sequence>          
-  </xs:complexType>
-</xs:element>  
-```
-
-<!--3 mixed -->
 <carta> Estimat <nomClient>Carles Puig</nomClient> ...</carta>
 ```
 
@@ -400,7 +402,8 @@ Definició amb XSD:
 </xs:element>
 ```
 
-<!--4 buit -->
+- Element Buit:
+```xml
 <color valor="blau"/>
 ```
 
@@ -775,33 +778,32 @@ El següent exemple defineix un element "password" amb una restricció. Ha d'hav
 Els símbols que s'utilitzen a les expressions regulars (el que va dintre de l'element pattern), són els següents:
 
 - Metacaràcters Comuns:
-  - .: Qualsevol caràcter excepte el caràcter de nova línea
-  - \d: Dígit (equivalent a [0-9]).
-  - \w: Caràcter de paraula (lletra, dígit o guió baix).
-  - \s: Espai en blank
+    - .: Qualsevol caràcter excepte el caràcter de nova línea
+    - \d: Dígit (equivalent a [0-9]).
+    - \w: Caràcter de paraula (lletra, dígit o guió baix).
+    - \s: Espai en blank
 
 - Quantificadors: estableixen el número de repeticions:
 
-  - *: Zero o més repeticions.
-  - +: Una o més repeticions.
-  - ?: Zero o cap repetició.
-  - {n}: Exactament n repeticions.
-  - {n,}: Almenys n repeticions.
-  - {n,m}: Entre n y m repeticions.
+    - *: Zero o més repeticions.
+    - +: Una o més repeticions.
+    - ?: Zero o cap repetició.
+    - {n}: Exactament n repeticions.
+    - {n,}: Almenys n repeticions.
+    - {n,m}: Entre n y m repeticions.
 
 - Grups i Alternatives:
 
-  - (...): Agrupació de patrons.
-  - |: Alternativa (OR).
-  - []: rang de valors
+    - (...): Agrupació de patrons.
+    - |: Alternativa (OR).
+    - []: rang de valors
 
 Escapat de caràcters especiales:
 
   - Si volen un dels caràcters amb significat especial (com . o *), s'han d'escapar amb una barra invertida.
 
-Veiem alguns exemples més:
 
-Per validar un número de telèfon a Espanya:
+Veiem alguns exemples més. Per validar un número de telèfon a Espanya:
 
 ```xml
 <xs:element name="telefon">

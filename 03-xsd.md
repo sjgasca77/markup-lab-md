@@ -33,7 +33,8 @@ Els esquemes XML aporten les següents funcionalitats:
 * **Incorporació de dades noves** XSD permet incorporar valors per defecte i fixes al document XML. També permet normalitzar els espais en blanc.
 
 
-XML Schema o XSD (XML Schema Definition) permet definir de forma molt precisa el contingut dels documents XML. Existeixen altres llenguatges d'esquema:
+XML Schema o XSD (XML Schema Definition) permet definir de forma molt precisa el contingut dels documents XML i és el que farem servir en aquesta unitat. 
+També existeixen altres llenguatges d'esquema:
 
 * [Relax NG](https://relaxng.org/). Basat en gramàtica. És més fàcil d'entendre que XML Schema. Desenvolupat per [Oasis](https://www.oasis-open.org/).
 
@@ -89,11 +90,11 @@ Un esquema XML és un document XML que ha de complir les següents regles:
 
 * L'element arrel s'anomena **schema**.
 
-* L'espai de noms ha de ser [http://www.w3.org.2001/XMLSchema](http://www.w3.org.2001/XMLSchema). Es pot no usar prefixe, utilitzar xs o xsd:
+* L'espai de noms ha de ser [http://www.w3.org/2001/XMLSchema](http://www.w3.org/2001/XMLSchema). Es pot no usar prefixe, utilitzar xs o xsd:
 
   ```xml
-  <?xml versión="1.0"?>
-  <xs:schema xmnls:xs ="http://www.w3.org.2001/XMLSchema">
+  <?xml version="1.0"?>
+  <xs:schema xmnls:xs ="http://www.w3.org/2001/XMLSchema">
   .....
   </xs:schema>
   ```      
@@ -107,8 +108,8 @@ Un esquema XML és un document XML que ha de complir les següents regles:
   Aquest element conté l'atribut name que defineix l'element arrel del document. XSD permet tenir més d'un element arrel al nostre esquema. 
 
   ```xml
-  <?xml versión="1.0"?>
-    <xs:schema xmlns:xs ="http://www.w3.org.2001/XMLSchema">
+  <?xml version="1.0"?>
+    <xs:schema xmlns:xs ="http://www.w3.org/2001/XMLSchema">
     <xs:element name="cotxe" />
     <xs:element name="vaixell" />
   </xs:schema>
@@ -161,42 +162,20 @@ Els **elements han d'incloure com a mínim** l'**atribut name** per especificar 
 Exemples de declaració d'elements a XSD:
 
 ```xml
-<!-- 1 -->
+<!-- L'element nom utilitza el tipus predefinit xsd:string (veure **3.2.4. Tipus de dades** més endavant) -->
 <xsd:element name="nom" type="xsd:string"/>
 
 <nom>Joan</nom>
 
-<!-- 2 -->
+<!-- l'element __tamany__ fa servir el tipus __TamanyTipus__ per indicar el tipus de dades de l'element(veure 3.2.5. Definició de tipus de dades propis) -->
 <xsd:element name="tamany" type="TamanyTipus"/>
 
 <tamany>L</tamany>
 
-<!-- 3 -->
-<xsd:element name="product">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:element name="name"/>
-      <xsd:element name="size"/>
-    <xsd:sequence>
-  </xsd:complexType>
-</xsd:element>  
-
-<product>
-  <name></name>
-  <size></size>
-</product>
-
-<!-- 4 -->
+<!-- 3 Si no hem especificat cap tipus de dades, el tipus serà __anyType__, que permet qualsevol contingut amb fills o caràcters. -->
 <xsd:element name="anything"/>
 ```
 
-- El primer element s'anomena nom utilitza el tipus predefinit xsd:string. (veure **tipus de dades** més endavant).
-
-- El segon element fa servir el tipus __TamanyTipus__ per indicar el tipus de dades de l'element __tamany__. (veure com crear **tipus de dades** més endavant).
-
-- El tercer exemple mostra com també podem definir un tipus de dada especificant __simpleType__ o __complexType__. En aquest cas l'element està definit com una seqüència d'altres elements.
-
-- Per últim, si no hem especificat cap tipus de dades, el tipus serà __anyType__ que permet qualsevol contingut amb fills o caràcters.
 
 Els atributs principals de **&lt;xs:element&gt;** són els següents:
 
@@ -236,7 +215,7 @@ Exemples:
 
 ### 3.2.5. Definició de tipus de dades propis.
 
-Per crear un tipus de dades nou personalitzat, ho fem en dos passos:
+Per a crear un tipus de dades nou personalitzat, fem el següent:
 
 1. Creem la definició del tipus mitjançant `<xs:simpleType>` o `<xs:complexType>`.
 2. Definim un element a XSD i li assignem el nou tipus de dades creat.
@@ -262,13 +241,15 @@ El següent fragment XSD crea un tipus personalitzat simple mitjançant l'elemen
 
 <!-- pas 2 -->
 <xs:element name="tamany" type="tipus_samarreta"/>
+
+<!-- element XML -->
+<tamany>L</tamany>    <!-- OK -->
+<tamany>XXXL</tamany> <!-- No valida -->
 ```
 
 El següent fragment XSD crea un tipus personalitzat anomenat **tipus_edat** indicant que el valor mínim ha de ser 1.
 
 ```xsd
-<edat>23</edat>
-
 <!-- pas 1 -->
 <xs:simpleType name="tipus_edat">
   <xs:restriction base="xs:integer">
@@ -278,6 +259,10 @@ El següent fragment XSD crea un tipus personalitzat anomenat **tipus_edat** ind
 
 <!-- pas 2 -->
 <xs:element name="edat" type="tipus_edat"/>
+
+<!-- element XML -->
+<edat>23</edat>
+<edat>0</edat>        <!-- No valida -->
 ```
 
 ### 3.2.5. Atributs
@@ -288,7 +273,7 @@ Atributs principals de **&lt;xs:attribute&gt;**:
 
 | nom atribut | propòsit |
 |-------------|----------|
-|  name       | nom de l'atribut. Aquest atribut no puede aparèixer al mateix temps que ref |
+|  name       | nom de l'atribut. Aquest atribut no pot aparèixer al mateix temps que ref |
 |  ref        | referència a la descripció de l'atribut que es troba en altre lloc de l'esquema. Si surt aquest atribut, no apareixeran els atributs type, ni form, ni podrà contenir un component xs:simpleType |
 |  type       | el tipus d'element (veure [tipus de dades](#324-tipus-de-dades)) |
 |  use        | indica si l'existència de l'atribut és opcional, obligatòria o prohibida (optional, required, prohibited) |
@@ -311,7 +296,7 @@ Un exemple complet:
 
 ## 3.3. Data types i exemples.
 
-Els tipus de dades permeten la validació del contingut dels elements i els valors dels atributs. Poden ser tipus simples (simpleType) o tipus complexes (complexType).
+Els tipus de dades permeten la validació del contingut dels elements i dels valors dels atributs. Poden ser tipus simples (simpleType) o tipus complexes (complexType).
 
 Els elements que tenen assignats tipus simples tenen dades de caràcters, però no tenen elements fills o atributs. Si tenen fills o atributs, aleshores es consideren tipus complexes.
 
@@ -319,7 +304,9 @@ Els següents elements tenen tipus simple:
 
 ```xml
 <tamany>L<tamany>
+
 <comentari>va molt gran</comentari>
+
 <tamanysDisponibles>10 L 2 M</tamanysDisponibles>
 ```
 
@@ -338,9 +325,9 @@ Els següents elements tenen tipus complexe:
 </tamanysDisponibles>
 ```
 
-Els atributs sempre tipus simple, doncs els atributs no poden tenir elements fills.
+Els atributs sempre són de tipus simple, doncs els atributs no poden tenir elements fills.
 
-Per declarar l’element &lt;tamanysDisponibles&gt; amb XSD:
+Per declarar l’element **&lt;tamanysDisponibles&gt;** amb XSD:
 
 ```xml
 <xs:element name="tamanysDisponibles">
@@ -354,31 +341,18 @@ Per declarar l’element &lt;tamanysDisponibles&gt; amb XSD:
 
 ## 3.3.1 Tipus complexes
 
-El contingut d'un element són els caràcters de dades i elements fills dintre de les etiquetes. Hi ha __cuatre__ tipus de contingut per a tipus complexes: simple, element, mixed i buit. El tipus de contingut és independent dels atributs. És a dir tots els tipus de contingut poden tenir atributs o no.
+El contingut d'un element són els caràcters de dades i elements fills dintre de les etiquetes. Hi ha __quatre__ tipus de contingut per a tipus complexes: **simple, element, mixed i buit**. El tipus de contingut és independent dels atributs. És a dir tots els tipus de contingut poden tenir atributs o no.
 
 A continuació tenim un exemple de cadascun i com definir-los a XSD.
 
 ```xml
-<!--1 -->
+<!--1 Simple -->
 <tamany sistema="EU">10</size>
-
-<!--2 -->
-<producte>
-  <numero>34D</numero>
-  <tamany>10</tamany>
-</producte>
-
-<!--3 -->
-<carta> Estimat <nomClient>Carles Puig</nomClient> ...</carta>
-
-<!--4 -->
-<color valor="blau"/>
 ```
 
-Definicions amb XSD:
+Definició amb XSD:
 
 ```xml
-<!--1 -->
 <xs:element name="tamany">
   <xs:complexType>
     <xs:simpleContent>
@@ -387,9 +361,20 @@ Definicions amb XSD:
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
+```
 
-<!--2 -->
-<xs:element name="tamany">
+```xml
+<!--2 Element -->
+<producte>
+  <numero>34D</numero>
+  <tamany>10</tamany>
+</producte>
+```
+
+Definició amb XSD:
+
+```xml
+<xs:element name="producte">
   <xs:complexType>
     <xs:sequence>
       <xs:element name="numero" type="xs:string"/>
@@ -397,8 +382,15 @@ Definicions amb XSD:
     </xs:sequence>          
   </xs:complexType>
 </xs:element>  
+```
 
-<!--3 -->
+<!--3 mixed -->
+<carta> Estimat <nomClient>Carles Puig</nomClient> ...</carta>
+```
+
+Definició amb XSD:
+
+```xml
 <xs:element name="carta">
   <xs:complexType mixed="true">
     <xs:sequence>
@@ -406,8 +398,15 @@ Definicions amb XSD:
     </xs:sequence>
   </xs:complexType>
 </xs:element>
+```
 
-<!--4 -->
+<!--4 buit -->
+<color valor="blau"/>
+```
+
+Definició amb XSD:
+
+```xml
 <xs:element name="color">
   <xs:complexType>
     <xs:attribute name="valor" type="TipusColorValors"/>
@@ -417,70 +416,74 @@ Definicions amb XSD:
 
 ## 3.4. Indicadors
 
-Hi ha set indicadors a XML. Els indicadors especifiquen com s'utilitzen els elements dintre del document XML (ordre, repeticions, etc.).
+Hi ha **set** indicadors a XML. Els indicadors especifiquen com s'utilitzen els elements dintre del document XML. Per exemple defineixen l'ordre, el número de instàncies o l'obligatorietat.
 
 ### 3.4.1. Indicadors d'ordre
 
 Cada element complexe (excepte els elements buits) conté un únic model de grup.
 
-**Sequence**
-L'indicador sequence s'utilitza per indicar l'ordre dels elements (si apareixen) fills de l'element complexe. Els elements contenen un indicador d'ocurrència, com minOccurs, però aquest és opcional.
+- **Sequence**
+  L'indicador sequence s'utilitza per indicar l'ordre dels elements fills (si apareixen) de l'element complexe. Els elements poden conentir un indicador d'ocurrència, com minOccurs, però aquest és opcional.
 
-Exemple:
+  Exemple:
 
-```xml
-<xs:element name="employee">
-<xs:complexType >
-  <xs:sequence>
-    <xs:element name="firstname" type="xs:string"/>
-    <xs:element name="lastname" type="xs:string"/>
-    <xs:element name="registration-date" type="xs:"/>
-  </xs:sequence>
-</xs:complexType>
-</xs:element>
-```
+  ```xml
+  <xs:element name="employee">
+  <xs:complexType >
+    <xs:sequence>
+      <xs:element name="firstname" type="xs:string"/>
+      <xs:element name="lastname" type="xs:string"/>
+      <xs:element name="registration-date" type="xs:date"/>
+    </xs:sequence>
+  </xs:complexType>
+  </xs:element>
+  ```
 
-**All**
-L'indicador all es comporta com el seqüence, excepte que no es necessari que surtin tots els elements ni en el mateix ordre. Si surten, només poden sortir un cop.
+- **All**
+  L'indicador all es comporta com el seqüence, excepte que no es necessari que surtin tots els elements ni en el mateix ordre. Si surten, només poden sortir un cop.
 
-```xml
-<xsd:element name="samarreta">
-  <xsd:complexType>
-    <xsd:all>
-      <xsd:element name="color" type="xsd:string"/>
-      <xsd:element name="tamany" type="tamanys-roba"/>
-    </xsd:all>
-  </xsd:complexType>
-</xsd:element>
-```
+  Exemple:
 
-**Choice**
-L'indicador choice declara un grup d'elements del qual només sortirà un al document XML
+  ```xml
+  <xsd:element name="samarreta">
+    <xsd:complexType>
+      <xsd:all>
+        <xsd:element name="color" type="xsd:string"/>
+        <xsd:element name="tamany" type="tamanys-roba"/>
+      </xsd:all>
+    </xsd:complexType>
+  </xsd:element>
+  ```
 
-```xml
-<xs:element name="vehicle-motor">
-<xs:complexType >
-  <xs:sequence>
-    <xs:element name="cotxe" type="xs:string"/>
-    <xs:element name="moto" type="xs:string"/>
-    <xs:element name="camio" type="xs:string"/>
-  </xs:sequence>
-</xs:complexType>
-</xs:element>
-```
+- **Choice**
+  L'indicador choice declara un grup d'elements del qual **només un** sortirà un al document XML.
+
+  Exemple:
+
+  ```xml
+  <xs:element name="vehicle-motor">
+  <xs:complexType >
+    <xs:choice>
+      <xs:element name="cotxe" type="xs:string"/>
+      <xs:element name="moto" type="xs:string"/>
+      <xs:element name="camio" type="xs:string"/>
+    </xs:choice>
+  </xs:complexType>
+  </xs:element>
+  ```
 
 
 ### 3.4.2. Indicadors d'ocurrència
 
-Els indicadors d'ocurrència determinen el número de vegades que surt un element en el document XML. Els valors per defecte de minOccurs i maxOccurs és 1.
+Els indicadors d'ocurrència determinen el número de vegades que surt un element en el document XML. **Els valor per defecte de minOccurs i maxOccurs és 1**.
 
 Els indicadors **maxOccurs** i **minOccurs** es poden utilitzar com a atributs dintre dels xs:element i els indicadors d'ordre (xs:sequence, xs:choice).
 
-Exemples:
+Exemple:
 
 ```xml
 <xs:element name="book" maxOccurs="unbounded">
-<xs:complexType >
+<xs:complexType>
   <xs:sequence>
     <xs:element name="cotxe" type="xs:string"/>
     <xs:element name="moto" type="xs:string"/>
@@ -495,7 +498,9 @@ Dintre d'aquests indicadors podem fer servir un valor numèric o __unbounded__ q
 ### 3.4.3. Indicadors de grup
 
 **Group name** i **attributeGroup name**
-Podem definir un grup d'elements o atributs, donar-li un nom i fer referència al grup desde una altra definició. Exemple
+Podem definir un grup d'elements o atributs, donar-li un nom i fer referència al grup desde una altra definició. 
+
+Exemple:
 
 ```xml
 <xs:group name="persona-grup">
@@ -540,7 +545,7 @@ El següent exemple defineix un element anomenat __edat__ amb una restricció. E
 Per limitar el contingunt d'un element XML a una sèrie acceptable de valors, farem servir la restricció d'enumeració. L'exemple que ve a continuació defineix un element anomenat __cotxe__ amb una restricció. Els únics valors acceptables son: Audi, Golf, BMW.
 
 ```xml
-<xs:element name="cotxe">
+<xs:element name="marca_cotxe">
   <xs:simpleType>
     <xs:restriction base="xs:string">
       <xs:enumeration value="Audi"/>
@@ -554,8 +559,8 @@ Per limitar el contingunt d'un element XML a una sèrie acceptable de valors, fa
 L'exemple de dalt també es pot escrire com segueix:
 
 ```xml
-<xs:element name="car" type="carType"/>
-  <xs:simpleType name="carType">
+<xs:element name="car" type="marca_cotxe"/>
+  <xs:simpleType name="marca_cotxe">
     <xs:restriction base="xs:string">
       <xs:enumeration value="Audi"/>
       <xs:enumeration value="Golf"/>
@@ -715,7 +720,9 @@ Aquest exemple defineix altre element "password" amb una restricció. El valor h
 | whiteSpace    | Especifica com es tracten els espais en blanc           | preserve replace collapse  |
 
 
-### 7. Altres exemples amb restriccions
+### 7. Altres exemples amb patrons (Expressions regulars)
+
+Els patrons és un tipus de restricció molt potent que permet detectar patrons dintre d'una cadena. 
 
 El següent exemple defineix un element anomenat "letter" amb una restricció. Els valors acceptables són zero o més ocurrències de lletres en minúscula de la a a la z:
 
@@ -747,7 +754,7 @@ El següent exemple defineix un element anomenat "genere" amb una restricció. E
 <xs:element name="genere">
   <xs:simpleType>
     <xs:restriction base="xs:string">
-      <xs:pattern value="home|dona"/>
+      <xs:pattern value="(home|dona)"/>
     </xs:restriction>
   </xs:simpleType>
 </xs:element>
@@ -764,5 +771,84 @@ El següent exemple defineix un element "password" amb una restricció. Ha d'hav
   </xs:simpleType>
 </xs:element>
 ```
+
+Els símbols que s'utilitzen a les expressions regulars (el que va dintre de l'element pattern), són els següents:
+
+- Metacaràcters Comuns:
+  - .: Qualsevol caràcter excepte el caràcter de nova línea
+  - \d: Dígit (equivalent a [0-9]).
+  - \w: Caràcter de paraula (lletra, dígit o guió baix).
+  - \s: Espai en blank
+
+- Quantificadors: estableixen el número de repeticions:
+
+  - *: Zero o més repeticions.
+  - +: Una o més repeticions.
+  - ?: Zero o cap repetició.
+  - {n}: Exactament n repeticions.
+  - {n,}: Almenys n repeticions.
+  - {n,m}: Entre n y m repeticions.
+
+- Grups i Alternatives:
+
+  - (...): Agrupació de patrons.
+  - |: Alternativa (OR).
+  - []: rang de valors
+
+Escapat de caràcters especiales:
+
+  - Si volen un dels caràcters amb significat especial (com . o *), s'han d'escapar amb una barra invertida.
+
+Veiem alguns exemples més:
+
+Per validar un número de telèfon a Espanya:
+
+```xml
+<xs:element name="telefon">
+    <xs:simpleType>
+        <xs:restriction base="xs:integer">
+            <xs:pattern value="[69][0-9]{8}"></xs:pattern>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:element>
+```
+
+Primer tindrem el digit 6 ó 9 i després qualsevol combinació de 8 digits. Per validar una adreça d'email tenim la següent restricció
+
+```xml
+<xs:element name="email">
+    <xs:simpleType>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Za-z._%+-]+@[A-Za-z\.]+[A-Za-z]{2,}"></xs:pattern>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:element>
+```
+
+Aquesta expressió té tres parts:
+
+- `[A-Za-z._%+-]+@`.  Aquesta primera part defineix la part anterior a l'arroba d'una adreça. Es permeten totes les lletres més els símbols _, %, + i - un número indefinit de vegades (simbol +).
+- `[A-Za-z\.]+`. La segona part (nom del domini) permet un número indefinit de totes les lletres i punts
+- `[A-Za-z]{2,}`. La part del TLD té mínim dues lletres o més (.com, .edu, .io).
+
+Per últim, volem validar una data amb format americà (AAAA-MM-DD):
+
+```xml
+<xs:element name="data">
+    <xs:simpleType>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:element>
+```
+
+Aquesta expressió es divideix com segueix:
+
+- `\d{4}-`: quatre digits qualsevols seguit d'un guió.
+- `(0[1-9]|1[0-2])-`: el més pot ser un 0 més un digit del 1 al nou o un 1 més un altre 1 o un 2.
+- `(0[1-9]|[12]\d|3[01])`: el dia pot ser del 0 al 9, del 10 al 29 o el 30 i 31.
+
+
 
 Aquest document està llicenciat sota els termes de la [Licencia Creative Commons Attribution 4.0 International (CC BY 4.0)](LICENSE.md).

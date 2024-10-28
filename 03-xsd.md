@@ -325,8 +325,6 @@ Els següents elements tenen tipus complexe:
 </tamanysDisponibles>
 ```
 
-Els atributs sempre són de tipus simple, doncs els atributs no poden tenir elements fills.
-
 Per declarar l’element **&lt;tamanysDisponibles&gt;** amb XSD:
 
 ```xml
@@ -338,6 +336,8 @@ Per declarar l’element **&lt;tamanysDisponibles&gt;** amb XSD:
   </xs:complexType>
 </xs:element>
 ```
+
+Els atributs sempre són de tipus simple, doncs els atributs no poden tenir elements fills. Per veure com definir atributs, veure (**3.3.2 Tipus simples**)
 
 ## 3.3.1 Tipus complexes
 
@@ -416,6 +416,69 @@ Definició amb XSD:
   </xs:complexType>
 </xs:element>
 ```
+
+## 3.3.2 Tipus simples (definició d'atributs i extensions)
+
+Per definir un atribut per un element qualsevol, podem diferenciar si el contingut de l'element és simple o complex (conté altres elements). A continuació veiem dos exemples i com definir-los a XSD.
+
+```xml
+<!-- Exemple 1: aquest element és complexType (té atributs) pero el seu contingut és simple -->
+<ciutat poblacio="45258">Reus</ciutat>
+
+<!-- Exemple 2: aquest element és complexType (té atributs) i el seu contingut és complexe -->
+<ciutat poblacio="45258">
+  <nom>Reus</nom>
+</ciutat>
+```
+
+Donat que el primer element té un contingut simple, hem d'extendre el contingut de texte. Per tant utilitzem la seqüencia d'elements: `xs:complexType`->`xs:simpleContent`->`xs:extension`.
+
+```xml
+<!-- Exemple 1: aquest element és complexType (té atributs) pero el seu contingut és simple -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="ciutat">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="poblacio" type="xs:integer" use="required"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
+```
+
+En aquest cas definim l'atribut dintre de l'element complexe:
+
+
+```xml
+<!-- Exemple 2: aquest element és complexType (té atributs) pero el seu contingut és simple -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="ciutat">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="nom" type="xs:string"/>
+            </xs:sequence>
+            <xs:attribute name="poblacio" type="xs:integer" use="required"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
+```
+
+Es possible definir el primer exemple sense l'ús de simpleContent, per exemple declarant el contingut mixte:
+
+```xml
+<!-- Exemple 1 alternatiu: utilitzem el contingut mixte -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="ciutat">
+        <xs:complexType mixed="true">
+            <xs:attribute name="poblacio" type="xs:integer" use="required"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
+```
+
+
 
 ## 3.4. Indicadors
 

@@ -10,35 +10,54 @@
 
 ## 4.1 Introducció a HTML
 
-HTML (HyperText Markup Language) és un llenguatge de marques que permet visualitzar documents a la Web.
+- HTML (HyperText Markup Language) és un **llenguatge de marques** que permet visualitzar documents a la **Web**.
 
-Les etiquetes utilitzades a HTML, com per exemple "paràgraf" (&lt;p&lt;) o "taula" (&lt;table&gt;) no es mostren en el navegador, sino que indiquen com mostrar la informació.
+- Consisteix en una sèrie d'elements que 'marquen' el contingut per a que aparegui d'una forma determinada.  
+  Els **elements HTML** poden fer que un texte es comporti com un enllaç que ens pot connectar amb altra web, pot posar en negreta una paraula, etc.
 
-L'estructura de HTML és semblant a XML: etiquetes, atributs, element arrel, etc... però el nom dels elements està establert, no ens els podem inventar. És a dir, HTML no és un metallenguatge i hem d'aprendre les etiquetes ja predefinides. 
+- Hi ha més de 100 etiquetes predefinides a HTML. [HTML elements reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Element).
+  Els elements es poden dividir en varis **tipus**: 
+  - **estructuració del contingut** (header, footer, main, nav). Permet organitzar el contingut del document.
+  - **metadades** document (head, style, title, link). Conté informació sobre la pàgina.
+  - **semantica** texte inline (a, abbr, br, code, strong, sub). Defineixen el significat, estructura o estil   
+    d'un texte.
+  - **contingut** texte (div, hr, li, pre)
 
-HTML5 es va llançar el 2014 i és la última versió del llenguatge.
+- **Les etiquetes** utilitzades a HTML, com per exemple "paràgraf" (`<p>`) o "taula" (`<table>`).
+  **no es mostren en el navegador**, indiquen com mostrar la informació. Per exemple per mostrar un paràgraf:
 
-Dintre d’un document HTML podem trobar 3 llenguatges diferents:
+  <p>The gulls swept over Dover.</p>
 
-![Llenguatges Web](assets/img/html-css-js.png "Llenguatges Web")
+- Les **regles pels elements a HTML són equivalents a XML**: etiquetes, atributs, element arrel. Recordem 
+  que HTML no és un metallenguatge i no podem inventar les nostres etiquetes. Teniu en compte que a HTML els elements normalment s'aniden (per exemple `<p>El meu gat està <strong>sempre</strong> dormint.</p>`) i que alguns elements normalmen són buits (per exemple una imagte `<img src="https://example.com/icon.png"  alt="icon" />`).
 
-Javascript (JS) és un llenguatge de programació i permet la creació de pàgines web interactives.
+- HTML5 es va llançar el 2014 i és la última versió del llenguatge. El desenvolupament d'HTML està a càrrec del consorci WHATWG (Web Hypertext  
+  Application Technology Working Group). HTML inicialment va estar liderat pel W3C però el seu desenvolupament era molt lent (HTML 4.0 va sortir el 1997). 
+
+- Dintre d’un document HTML podem trobar 3 llenguatges diferents: HTML, CSS i Javascript.
+
+  ![Llenguatges Web](assets/img/html-css-js.png "Llenguatges Web")
+
+  - Javascript (JS) és un llenguatge de programació i permet la creació de pàgines web interactives.
+
+- Un navegador (browser) permet visualitzar pàgines HTML. També sap interpretar CSS (per donar estil) i Javascript (per donar funcionalitat).
+
 
 Estructura d’una pàgina HTML5:
 
 ```html
   <!DOCTYPE html>
-  <html lang=”ES”>
+  <html lang="ES">
       <head>
-          <meta charset=”utf-8”>
-          <meta name=”viewport” content="width=device-width, initial-
-          scale=1.0">
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <title></title>
-          <!-- scripts, css, meta -->
+          <!-- css, meta -->
       </head>
       <body>
           <h1>Això és un <b>titular</b> en HTML</h1>
           <p>Aquest és el primer paràgraf.</p>
+          <!-- scripts Javascript -->
       </body>
   </html>
 ```
@@ -51,16 +70,11 @@ L’etiqueta __body__ representa el contingut de la pàgina i tot el que afegim 
 
 ## 4.2. Demo
 
-Afegir snippet a Visual Studio Code
+Veure annexos per Extensions recomanades.
+
 https://code.visualstudio.com/docs/editor/emmet
 
-
-Instalar extensión Live Server per iniciar el navegador web des del codi font:
-
-Per veure el resultat:
-
-
-Més informació:&lt:
+Més informació:
 
 [Element Meta (mozilla.org)](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta)
 
@@ -82,10 +96,16 @@ Existeixen molts elements HTML per donar format al nostre texte. Alguns dels mé
 * Efectes de texte (negreta, èmfasi, subratllat, ratllar): &lt;strong&gt;, &lt;em&gt;, &lt;ins&gt;, &lt;del&gt;
 * Resaltat de texte, subíndex, superíndex: &lt;mark&gt;&lt;sub&gt;&lt;sup&gt; H2O H&lt;sub>2&lt;/sub&gt;O
 
-
-
 El resultat dels elements bàsics seria:
-<p></p>
+
+```html
+<h1>Capcelera H1</h1>
+<h2>Capcelera H2</h2>
+<h3>Capcelera H3</h3>
+<h4>Capcelera H4</h4>
+<h5>Capcelera H5</h5>
+<h6>Capcelera H6</h6>
+```
 
 <h1>Capcelera H1</h1>
 <h2>Capcelera H2</h2>
@@ -94,11 +114,21 @@ El resultat dels elements bàsics seria:
 <h5>Capcelera H5</h5>
 <h6>Capcelera H6</h6>
 
-<p></p>
+```html
+<p>Això es un paràgraf a HTML</p>
+```
 
 <p>Això es un paràgraf a HTML</p>
 
-<p></p>
+El texte preformatejat conserva els espais
+
+```html
+<pre>
+Tu corazón, ya terciopelo ajado,
+llama a un campo de almendras espumosas
+mi avariciosa voz de enamorado.
+</pre>
+```
 
 <pre>
 Tu corazón, ya terciopelo ajado,
@@ -106,9 +136,11 @@ llama a un campo de almendras espumosas
 mi avariciosa voz de enamorado.
 </pre>
 
-<p></p>
+`Alguns efectes de texte bàsics com <strong>negreta</strong>, <em>èmfasi</em>, <ins>subratllat</ins> o <del>ratllar</del>, s'aconsegueixen amb les etiquetes strong, em, ins o del.`
 
 Alguns efectes de texte bàsics com <strong>negreta</strong>, <em>èmfasi</em>, <ins>subratllat</ins> o <del>ratllar</del>, s'aconsegueixen amb les etiquetes strong, em, ins o del.
+
+`Podem <mark>resaltar el texte</mark> i crear subíndex i superíndex, com a H2O => H<sub>2</sub>O`
 
 Podem <mark>resaltar el texte</mark> i crear subíndex i superíndex, com a H2O => H<sub>2</sub>O
 
@@ -118,18 +150,19 @@ Més informació:
 [Introduction to HTML (Mozilla.org)](https://developer.mozilla.org/es/docs/Learn/HTML/Introduction_to_HTML/)
 
 Capítols:
-* HTML_text_fundamentals
-* Advanced_text_formatting
+
+* [HTML_text_fundamentals](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/HTML_text_fundamentals)
+* [Advanced_text_formatting](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Advanced_text_formatting)
 
 ## 4.4. Enllaços
 
 Un enllaç (link) permet navegar per la web, és a dir accedir a altres llocs remots mitjançant un click.
 
-L’element &lt;a&lt; (ancla o “anchor”) fa que la web sigui navegable. 
+L’element `<a>` (ancla o "anchor") fa que la web sigui navegable. 
 
 Podem enllaçar diversos elements: 
 * Un altre lloc remot.
-* Un altre lloc de la mateixa pàgina 
+* Un altre lloc de la mateixa pàgina.
 * Una adreça de correu electrònic.
 
 Enllaç a una url externa:
@@ -151,17 +184,14 @@ Si tenim el gestor de correu configurat, en fer click es crearà un correu elect
 
 Atributs més comuns:
 
-* href: HyperText Reference
-* title: mostra una descripció quan es pasa el ratolí per sobre
-* target: Per defecte la pàgina enllaçada es mostra en la finestra actual del navegador. Aquest comportament es pot modificar. L'atribut admet els següents valors:
-* “__blank” obre l’enllaç en una nova finestra
-
-
+* **href**: HyperText Reference
+* **title**: mostra una descripció quan es pasa el ratolí per sobre
+* **target**: Per defecte la pàgina enllaçada es mostra en la finestra actual del navegador. Aquest comportament es pot modificar. L'atribut admet els següents valors:
+  * “__blank” obre l’enllaç en una nova finestra
 
 Més info:
 
-[Creating HyperLinks](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Creating_hyperlinks)
-
+- [Creating HyperLinks (MDN)](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Creating_hyperlinks)
 
 ## 4.5. Imatges
 
@@ -201,7 +231,7 @@ La font pot ser una subcarpeta del servidor o una URL:
 Imatge amb enllaç:
 ```html
 <a href="https://www.w3schools.com">
-<img src="w3html.gif" alt="W3Schools.com" width="100" height="132">
+   <img src="w3html.gif" alt="W3Schools.com" width="100" height="132">
 </a>
 ```
 
@@ -212,6 +242,12 @@ L'element a admet els següents formats d’imatge:
 * GIF (inclós GIF animat)
 * BMP
 * SVG (vectorial, basat en XML)
+
+Més info:
+
+- [Images in HTML (MDN)](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Images_in_HTML)
+- [img The Image Embed element  (MDN)](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img)
+
 
 ## 4.6. Llistes
 
@@ -308,7 +344,11 @@ L’estil de les vinyetes de les llistes es pot canviar amb CSS!
 ```
 Diferents propietats CSS (estil), que podem canviar de les llistes:
 
-[CSS Lists w3schools](https://www.w3schools.com/css/css_list.asp)
+- [CSS Lists (w3schools)](https://www.w3schools.com/css/css_list.asp)
+
+Més informació sobre llistes:
+
+- [Styling lists (MDN)](https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Styling_lists)
 
 
 ## 4.7. Taules. Estructura bàsica.
@@ -351,29 +391,37 @@ Sortida:
     </tbody>
   </table>
 
-
-* L’etiqueta `<table>` permet definir la taula. 
-* Definirem cada fila de la nostra taula amb l'etiqueta `<tr>`, excepte la fila de capcelera que fem servir `<th>`, que té un format diferent de la resta (negreta).
-* Dintre de cada fila, les columnes s'identifiquen amb l'etiqueta `<td>`.
-* Els elements <td> poden contenir tot tipus d’elements HTML: text, imatges, llistes, altres taules, ...
-* Per últim tenim l'etiqueta 
-
-A les taules li podem aplicar diferents propietats CSS
-aquí les podeu consultar . 􀀀 Propietats:
-○ width i height: ens permet donar l’amplada a la
-taula o a les columnes i l’alçada de cada fila. Si
-volem que ocupi tot l’ample farem servir el valor
-100%
-○ border: ens permet especificar les línies que
-separen cada cel.la. Si li volem aplicar a tota la
-taula, li aplicarem a les etiquetes: table, th, td
-○ border-collapse: quan posem border a una taula i
-les seves cel.les es crea una línia doble que podem
-treure amb aquesta propietat amb el valor
-collapse.
+| element taula | significat |
+|-------------|----------|
+| table       | contenidor principal taula
+| thead       | contenidor per a la linea de capcelera (negreta) 
+| tr          | identifica l'inici d'una nova fila
+| th          | marca cada camp de la capcelera. Equivalent a td
+| tbody       | contenidor per al contingut principal de la taula
+| td          | contenidor per a la cel.la de dades
+| tfoot       | contenidor per al peu de la taula (per exemple per a calcular subtotals)
 
 
-Per últim també tenim l’etiqueta __tfooter__ per afegir un peu de taula, per exemple per sumaritzar alguna de les columnes.
+1. Definirem cada fila de la nostra taula amb l'etiqueta `<tr>`, excepte la fila de capcelera que fem servir `<th>`, que té un format diferent de la resta (negreta).
+2. Dintre de cada fila, les columnes s'identifiquen amb l'etiqueta `<td>`.
+3. Els elements <td> poden contenir tot tipus d’elements HTML: text, imatges, llistes, altres taules, ...
+4. Per últim també tenim l’etiqueta __tfoot__ per afegir un peu de taula, per exemple per sumaritzar alguna de les columnes.
+
+A les taules li podem aplicar diferents propietats CSS aquí les podeu consultar
+
+- [Styling tables (MDN)](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Styling_tables)
+
+### Propietats CSS:
+- `width` i `height`: ens permet donar l’amplada a la taula o a les columnes i l’alçada de cada fila. Si volem que ocupi tot l’ample farem servir el valor 100%
+
+- `order`: ens permet especificar les línies que separen cada cel.la. Si li volem aplicar a tota la taula, li aplicarem a les etiquetes: table, th, td
+- `border-collapse`: quan posem border a una taula i les seves cel.les es crea una línia doble que podem treure amb aquesta propietat amb el valor collapse.
+
+Més info:
+
+- [HTML table basics MDN](https://developer.mozilla.org/en-US/docs/Learn/HTML/Tables/Basics)
+- [HTML table advanced features and accessibility MDN](https://developer.mozilla.org/en-US/docs/Learn/HTML/Tables/Advanced)
+
 
 ## 4.8. Formularis
 
@@ -382,11 +430,11 @@ etc. Amb l’ajuda d’un llenguatge de servidor (PHP, NodeJS) podem guardar-ho 
 
 ```html
   <form action=”gestio-form.php” method=”post”>
-  <label for=”name”>Nom</label>
-  <input type=”text” id=”name”>
-  ...
-  <input type=””>
-  <button type=”submit”>Submit</button>
+    <label for=”name”>Nom</label>
+    <input type=”text” id=”name”>
+    ...
+    <input type=””>
+    <button type=”submit”>Submit</button>
   </form>
 ```
 
@@ -414,9 +462,8 @@ Els tipus d’elements que podem incloure en un formulari són:
 
 Més info:
 
-[Forms (Mozilla.org)](https://developer.mozilla.org/en-US/docs/Learn/Forms)
-
-[Element FORM: Mètode GET vs POST](https://developer.mozilla.org/en-US/docs/Learn/Forms/Sending_and_retrieving_form_data)
+- [Forms (Mozilla.org)](https://developer.mozilla.org/en-US/docs/Learn/Forms)
+- [Element FORM: Mètode GET vs POST](https://developer.mozilla.org/en-US/docs/Learn/Forms/Sending_and_retrieving_form_data)
 
 ## 4.9. Altres elements: video, audio, pictures
 
@@ -426,25 +473,24 @@ Alguns elements propis de HTML5:
 
 video, audio, figure i iframe
 
-```html
+```xml
 <div>
- <svg height="300" width="800">
-      <defs>
-        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" style="stop-color:rgb(255,255,0);stop-opacity:1" />
-          <stop offset="100%" style="stop-color:rgb(255,0,0);stop-opacity:1" />
-        </linearGradient>
-      </defs>
-      <rect x="50" y="20" rx="20" ry="20" width="600" height="100" fill="url(#grad1)" style="fill:blue;stroke:darkblue;stroke-width:5;opacity:0.6" />
+  <svg height="300" width="800">
+    <defs>
+      <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:rgb(255,255,0);stop-opacity:1" />
+        <stop offset="100%" style="stop-color:rgb(255,0,0);stop-opacity:1" />
+      </linearGradient>
+    </defs>
+    <rect x="50" y="20" rx="20" ry="20" width="600" height="100" fill="url(#grad1)" style="fill:blue;stroke:darkblue;stroke-width:5;opacity:0.6" />
     <ellipse cx="100" cy="70" rx="85" ry="55" fill="url(#grad1)" /> 
-      <text fill="#ffffff" font-size="45" font-family="Verdana" x="50" y="86">&nbsp;Pagina Web Multimedia</text>
-      Sorry, your browser does not support inline SVG.
-    </svg>    
+    <text fill="#ffffff" font-size="45" font-family="Verdana" x="50" y="86">&nbsp;Pagina Web Multimedia</text>
+    Sorry, your browser does not support inline SVG.
+  </svg>    
 </div>
 
 <div>
-<!-- HTML compatible video formats: mp4 webm ogg
-     https://es.wikipedia.org/wiki/WebM -->
+<!-- HTML compatible video formats: mp4 webm ogg https://es.wikipedia.org/wiki/WebM -->
     <video width="320" height="240" controls
             autoplay>
     <source src ="tierra_noche_MP4_480_1_5MG.mp4">
@@ -452,28 +498,27 @@ video, audio, figure i iframe
 </div>    
 
 <div>
-    <video width="320" height="240" controls autoplay loop> 
-      <source src ="./vid/escena_animacion.mp4">
-      <track src="./vid/escena_animacion.srt" label="Ingles SRT" kind="subtitles" srclang="en">
-      <track src="./vid/escena_animacion.vtt" label="Ingles" kind="subtitles" srclang="en" default>
-      Video tag not supported. Download the video 
-      <a href="./vid/escena_animacion.mp4">here</a>.
-    </video>
+<video width="320" height="240" controls autoplay loop> 
+  <source src ="./vid/escena_animacion.mp4">
+  <track src="./vid/escena_animacion.srt" label="Ingles SRT" kind="subtitles" srclang="en">
+  <track src="./vid/escena_animacion.vtt" label="Ingles" kind="subtitles" srclang="en" default>
+  Video tag not supported. Download the video 
+  <a href="./vid/escena_animacion.mp4">here</a>.
+</video>
 </div>
 
 <div>
-    <audio controls autoplay>
-      <source src="./vid/viper.mp3" type="audio/mp3">
-      <source src="./vid/viper.ogg" type="audio/ogg">
-      <p>Your browser doesn't support HTML5 audio. Here is a <a href="viper.mp3">link to the audio</a> instead.</p>
-    </audio>
+<audio controls autoplay>
+  <source src="./vid/viper.mp3" type="audio/mp3">
+  <source src="./vid/viper.ogg" type="audio/ogg">
+  <p>Your browser doesn't support HTML5 audio. Here is a <a href="viper.mp3">link to the audio</a> instead.</p>
+</audio>
 </div>
 
 <figure>
     <img src="https://picsum.photos/600/400"
          width="600" height="400"
-         alt="Esta es una foto aleatoria de picsum"
-    >
+         alt="Esta es una foto aleatoria de picsum" />
     <figcaption>Foto aleatoria de picsum</figcaption>
 </figure>
 
@@ -491,9 +536,18 @@ video, audio, figure i iframe
 </div>
 ```
 
+Descarregar arxius:
+
+- [escena_animacion.mp4](assets/vid/escena_animacion.mp4)
+- [escena_animacion.vtt](assets/vid/escena_animacion.vtt)
+- [viper.mp3](assets/vid/viper.mp3)
+
+
 ## 4.10. HTML5: tags semàntics i contenidor
 
-Elements NO semàntics: &lt;div&gt; i &lt;span&gt;. Aquests contenidors no aporten informació sobre el contingut. HTML5 incorpora uns 100 tags semàntics. 
+Elements **NO semàntics**: `<div>` i `<span>`. Aquests contenidors no aporten informació sobre el contingut. 
+
+HTML5 incorpora uns 100 tags semàntics. 
 Per ex: &lt;nav&gt; per incloure una barra de navegació.
 
 ```html
@@ -508,19 +562,17 @@ Per ex: &lt;nav&gt; per incloure una barra de navegació.
   <time>
 ```
 
-**Activitat 10:**
+![semantic_vs_nonsemantic](assets/img/semantic_vs_nonsemantic.png)
 
-Escriu en un HTML l’estructura de les dues pàgines de la imatge amb elements semàntics.
-
-[HTML5 semantic elements](https://www.w3schools.com/html/html5_semantic_elements.asp)
-
+- [HTML5 semantic elements](https://www.w3schools.com/html/html5_semantic_elements.asp)
+- [Document and website structure MDN](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Document_and_website_structure)
 
 ## 4.11. Estils
 
 De moment hem vist elements HTML que permeten organitzar la informació mostrada. També podem aplicar estils a cadascun dels elements individualment. Per això fem servir el llenguatge CSS. La sintaxi es:
 
-```html
-  <etiqueta style=”propietat:valor;”>
+```xml
+  <element style=”propietat:valor;”>
 ```
 Per exemple, per establir el color de fons del cos de la web, fariem:
 
@@ -743,7 +795,7 @@ selector:pseudo_classe {
 }
 ```
 
-Estats de <a>:
+Possibles estats dels enllaços (`<a href="">`):
 
 * Sense visitar - link
 * Visitat - visited
@@ -759,7 +811,7 @@ a:visited {
 }
 ```
 
-[HTMLDog Gudes](https://htmldog.com/guides/)
+[HTMLDog Guides](https://htmldog.com/guides/)
 
 ## Crèdits
 

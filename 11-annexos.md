@@ -2,7 +2,7 @@
 
 ## Annex 1. Instalació i configuració VSCodium.
 
-Per crear els nostres arxius xml utilitzarem el software VSCodium, basat en el mateix codi font que Visual Studio Code però amb telemetria deshabilitada i amb un altre loco
+Per crear els nostres arxius xml utilitzarem el software VSCodium, basat en el mateix codi font que Visual Studio Code però amb telemetria deshabilitada i amb un altre logo.
 
 * [VSCodium Open Source Binaries of VSCode](https://vscodium.com/)
 * [Releases VSCodium](https://github.com/VSCodium/vscodium/releases)
@@ -10,11 +10,22 @@ Per crear els nostres arxius xml utilitzarem el software VSCodium, basat en el m
 Primer, descarrega i instal·la la versió de VSCodium segons el teu S.O (Win10, Debian). 
 Després, anirem a instal·lar la nostra primera extensió a VSCodium. Per tal de fer-ho anem a Extensions (panell lateral), busquem el terme "xml" a la casella i instal·lem l'extensió seleccionada (XML Redhat).
 
-![](assets/img/2-4-VSCodium-1.png)
+![Extension XML VSCodium](assets/img/2-4-VSCodium-1.png)
 
-![](assets/img/2-4-VSCodium-2.png)
+![Extension XML VSCodium-2](assets/img/2-4-VSCodium-2.png)
 
-## Ànnex 2. Instalació Saxon SXLT a Visual Studio.
+
+## Annex 2. Extensions VSCodium per a HTML.
+
+Per tal de poder previsualitzar les pàgines ràpidament i millorar el formateig d'HTML es recomanen les següents extensions:
+
+**Extension XML VSCodium Live Server**
+
+![Extension Live Sever ](assets/img/live_server.png)
+
+Altres extensions interessants són CSS Peek Name: [CSS Peek](https://marketplace.visualstudio.com/items?itemName=pranaygp.vscode-css-peek) i [HTML CSS support](https://marketplace.visualstudio.com/items?itemName=ecmel.vscode-html-css)
+
+## Ànnex 3. Instalació Saxon SXLT a Visual Studio.
 
 Per tal de processar els nostres documents XML i generar una sortida amb XSLT necessitem un processador. Per instal.lar el processador Saxon SXLT a Visual Studio Code:
 
@@ -51,9 +62,11 @@ Més informació:
 
 Aquest document està llicenciat sota els termes de la [Licencia Creative Commons Attribution 4.0 International (CC BY 4.0)](LICENSE.md).
 
-## Ànnex 3. Introducció a JavaScript per a Principiants
+## Ànnex 4. JavaScript per a Principiants
 
-JavaScript és un llenguatge de programació que permet afegir interactivitat i dinamisme a les pàgines web. Si alguna vegada has vist un botó que canvia de color en passar-hi el ratolí per sobre, o una finestra emergent que et demana el nom això es pot fer amb JavaScript. A diferència d'altres llenguatges que funcionen al servidor, JavaScript s'executa directament al navegador de l'usuari. cosa que el fa ideal per a la creació d'interfícies interactives.
+JavaScript és un llenguatge de programació que permet afegir interactivitat i dinamisme a les pàgines web. Si alguna vegada has vist un botó que canvia de color en passar-hi el ratolí per sobre, o una finestra emergent que et demana el nom això es pot fer amb JavaScript. A diferència d'altres llenguatges que funcionen al servidor, JavaScript s'executa directament al navegador de l'usuari, cosa que el fa ideal per a la creació d'interfícies interactives.
+
+Javascript és l'únic llenguatge que s'utilitza a la part client (navegador) i per tant és molt popular.
 
 ### Conceptes Bàsics
 
@@ -64,14 +77,16 @@ JavaScript és un llenguatge de programació que permet afegir interactivitat i 
     <!DOCTYPE html>
     <html>
         <head>
-            <script>
-                ...el meu codi Javascript...
-            </script>
         </head>
-        <body></body>
+        <body>
+           <script>
+                //el meu codi Javascript
+            </script>
+        </body>
     </html>
     ```
 
+    El codi Javascript es pot ubicar 
 - **Variables**: Les variables són espais on podem guardar informació (nombres, text, etc.) que després podem reutilitzar. Hi ha diverses maneres de declarar variables en JavaScript, però les més comunes són let, const, i var.
 
     ```javascript
@@ -79,24 +94,51 @@ JavaScript és un llenguatge de programació que permet afegir interactivitat i 
     const pi = 3.14;   // Una constant que no canviarà el seu valor
     ```
 
-- **Funcions**: Les funcions són blocs de codi que podem definir una vegada i reutilitzar cada vegada que les cridem. Una funció pot acceptar dades (anomenades "paràmetres") i retornar un resultat.
+    Exemple:
 
     ```javascript
+    <h2 id="missatge_pi"></h2>
+    
+    <script>
+      let nom = "Joan";  
+      const pi = 3.14;   
 
+      let h2 = document.getElementById("missatge_pi");
+      h2.innerHTML = "Hola em dic " + nom + " i el valor de pi és " + pi;
+
+      //també console.log("Hola em dic " + nom + " i el valor de pi és " + pi);
+    </script>    
+    ```
+
+- **Funcions**: Una funció és un conjunt d'instruccions que s'executen seqüencialment i permeten dur a terme una tasca concreta, per exemple donat un numero enter positiu, la funcio arrel2() retorna l'arrel quadrada del número. Les funcions són blocs de codi que podem definir una vegada i reutilitzar cada vegada que les cridem. Una funció pot acceptar dades (anomenades "paràmetres") en format de llista de variables (var1, var2,..,varn) i retornar un resultat. 
+
+    ```javascript
     function saludar(nom) {
         return "Hola, " + nom;
     }
     ```
 
+    Exemple:
+    ```javascript
+    let nom = "Joan";  
+
+    function acomiadar(nom) {
+        return "Fins aviat " + nom;
+    };
+    
+    console.log(acomiadar(nom));
+    ```
+
 - **Esdeveniments**: JavaScript pot reaccionar a diferents accions de l'usuari, com fer clic en un botó, moure el ratolí o escriure en un camp de text. Aquestes reaccions s'anomenen "esdeveniments".
 
     ```javascript
+    <button id="elMeuBoto">Fes clic</button>
 
-        document.getElementById("elMeuBoto").addEventListener("click", 
-        function() {
-            alert("Has fet clic al botó!");
-        }
-        );
+    document.getElementById("elMeuBoto").addEventListener("click", 
+    function() {
+        alert("Has fet clic al botó!");
+    }
+    );
     ```
 
 - **Manipulació del DOM**: El DOM (Document Object Model) és la representació estructural d'una pàgina web que el navegador crea a partir d'un fitxer HTML. JavaScript pot interactuar amb el DOM per a canviar el contingut o l'aparença d'una pàgina sense necessitat de recarregar-la.
@@ -109,7 +151,7 @@ JavaScript és un llenguatge de programació que permet afegir interactivitat i 
 
 ### Activitat Pràctica
 
-Per posar en pràctica el que hem après, crearem una petita aplicació que canviï el color de fons de la pàgina quan l'usuari faci clic en un botó.
+Per posar en pràctica els conceptes bàsics, crearem una petita aplicació que canviï el color de fons de la pàgina quan l'usuari faci clic en un botó.
 
 En el teu fitxer HTML, crea un botó i un paràgraf:
 
@@ -121,15 +163,16 @@ En el teu fitxer HTML, crea un botó i un paràgraf:
 Ara, escriu el següent codi JavaScript per canviar el color de fons de la pàgina:
 
 ```javascript
-    document.getElementById("canviarColor").addEventListener("click", 
-      function() {
-        document.body.style.backgroundColor = "lightblue";
-    });
+document.getElementById("canviarColor").addEventListener("click", 
+    function() {
+    document.body.style.backgroundColor = "lightblue";
+});
 ```
 
 Aquest codi li diu a JavaScript que esperi que l'usuari faci clic al botó amb l'id canviarColor, i quan això passi, canviarà el color de fons de la pàgina.
-Conclusió
+Ampliacions
 
-En resum, JavaScript ens permet fer que les pàgines web siguin més dinàmiques i interactives. Amb variables podem emmagatzemar dades, amb funcions podem reutilitzar codi, i gràcies a la manipulació del DOM podem fer canvis visuals i funcionals a la nostra pàgina web en temps real.
+- Fes que hi hagi un altre botó al costat que torni al color de fons per defecte.
+- Inclou un color picker per a que l'usuari esculli un color.
 
-Ara estàs preparat per començar a crear aplicacions senzilles utilitzant JavaScript!
+Ara estàs preparat per començar a crear aplicacions senzilles amb JavaScript!

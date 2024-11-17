@@ -27,6 +27,10 @@ Altres extensions interessants són CSS Peek Name: [CSS Peek](https://marketplac
 
 ## Ànnex 3. Instalació Saxon SXLT a Visual Studio.
 
+!!! quote "Atenció "
+
+    Aquest procediment només serveix per a Visual Studio Code, no per a VSCodium per una questió relacionada amb les llicències de Microsoft.
+
 Per tal de processar els nostres documents XML i generar una sortida amb XSLT necessitem un processador. Per instal.lar el processador Saxon SXLT a Visual Studio Code:
 
 1. Descarregar l'última versió de **Saxon Home Edition (Saxon-HE)** des de la pàgina oficial: [Saxon SXLT and XQuery Processor](https://saxon.sourceforge.net/#F11HE). No cal descarregar ni els exemples ni el codi font. 

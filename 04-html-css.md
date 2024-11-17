@@ -17,16 +17,18 @@
 
 - Hi ha més de 100 etiquetes predefinides a HTML. [HTML elements reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Element).
   Els elements es poden dividir en varis **tipus**: 
-  - **estructuració del contingut** (header, footer, main, nav). Permet organitzar el contingut del document.
-  - **metadades** document (head, style, title, link). Conté informació sobre la pàgina.
-  - **semantica** texte inline (a, abbr, br, code, strong, sub). Defineixen el significat, estructura o estil   
+    - **Estructuració del contingut** (header, footer, main, nav). Permet organitzar el contingut del document.
+    - **Metadades** document (head, style, title, link). Conté informació sobre la pàgina.
+    - **Semàntica** texte inline (a, abbr, br, code, strong, sub). Defineixen el significat, estructura o estil   
     d'un texte.
-  - **contingut** texte (div, hr, li, pre)
+    - **Contingut** texte (div, hr, li, pre, quote).
 
 - **Les etiquetes** utilitzades a HTML, com per exemple "paràgraf" (`<p>`) o "taula" (`<table>`).
   **no es mostren en el navegador**, indiquen com mostrar la informació. Per exemple per mostrar un paràgraf:
 
-  <p>The gulls swept over Dover.</p>
+    `<p>The gulls swept over Dover.</p>`
+
+    <p>The gulls swept over Dover.</p>
 
 - Les **regles pels elements a HTML són equivalents a XML**: etiquetes, atributs, element arrel. Recordem 
   que HTML no és un metallenguatge i no podem inventar les nostres etiquetes. Teniu en compte que a HTML els elements normalment s'aniden (per exemple `<p>El meu gat està <strong>sempre</strong> dormint.</p>`) i que alguns elements normalmen són buits (per exemple una imagte `<img src="https://example.com/icon.png"  alt="icon" />`).
@@ -38,6 +40,7 @@
 
   ![Llenguatges Web](assets/img/html-css-js.png "Llenguatges Web")
 
+  - CSS permet donar estil (color, tamany, posisició) als elements HTML.
   - Javascript (JS) és un llenguatge de programació i permet la creació de pàgines web interactives.
 
 - Un navegador (browser) permet visualitzar pàgines HTML. També sap interpretar CSS (per donar estil) i Javascript (per donar funcionalitat).

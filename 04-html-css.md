@@ -12,15 +12,14 @@
 
 - HTML (HyperText Markup Language) és un **llenguatge de marques** que permet visualitzar documents a la **Web**.
 
-- Consisteix en una sèrie d'elements que 'marquen' el contingut per a que aparegui d'una forma determinada.  
-  Els **elements HTML** poden fer que un texte es comporti com un enllaç que ens pot connectar amb altra web, pot posar en negreta una paraula, etc.
+- Consisteix en una sèrie d'elements que 'marquen' el contingut per a que aparegui d'una forma determinada. Els **elements HTML** poden fer que un texte es comporti com un enllaç que ens pot connectar amb altra web, pot posar en  
+  negreta una paraula, etc.
 
 - Hi ha més de 100 etiquetes predefinides a HTML. [HTML elements reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Element).
   Els elements es poden dividir en varis **tipus**: 
     - **Estructuració del contingut** (header, footer, main, nav). Permet organitzar el contingut del document.
     - **Metadades** document (head, style, title, link). Conté informació sobre la pàgina.
-    - **Semàntica** texte inline (a, abbr, br, code, strong, sub). Defineixen el significat, estructura o estil   
-    d'un texte.
+    - **Semàntica** texte inline (a, abbr, br, code, strong, sub). Defineixen el significat, estructura o estil d'un texte.
     - **Contingut** texte (div, hr, li, pre, quote).
 
 - **Les etiquetes** utilitzades a HTML, com per exemple "paràgraf" (`<p>`) o "taula" (`<table>`).
@@ -30,13 +29,13 @@
 
     <p>The gulls swept over Dover.</p>
 
-- Les **regles pels elements a HTML són equivalents a XML**: etiquetes, atributs, element arrel. Recordem 
-  que HTML no és un metallenguatge i no podem inventar les nostres etiquetes. Teniu en compte que a HTML els elements normalment s'aniden (per exemple `<p>El meu gat està <strong>sempre</strong> dormint.</p>`) i que alguns elements normalmen són buits (per exemple una imagte `<img src="https://example.com/icon.png"  alt="icon" />`).
+- Les **regles pels elements a HTML són equivalents a XML**: etiquetes, atributs, element arrel. Recordem que HTML no és un metallenguatge i no podem inventar les nostres etiquetes. Teniu en compte que a HTML els elements 
+  normalment s'aniden (per exemple `<p>El meu gat està <strong>sempre</strong> dormint.</p>`) i que alguns elements normalmen són buits (per exemple una imagte `<img src="https://example.com/icon.png"  alt="icon" />`).
 
-- HTML5 es va llançar el 2014 i és la última versió del llenguatge. El desenvolupament d'HTML està a càrrec del consorci WHATWG (Web Hypertext  
-  Application Technology Working Group). HTML inicialment va estar liderat pel W3C però el seu desenvolupament era molt lent (HTML 4.0 va sortir el 1997). 
+- **HTML5** es va llançar el 2014 i és la última versió del llenguatge. El desenvolupament d'HTML està a càrrec del consorci **WHATWG** (Web Hypertext Application Technology Working Group). HTML inicialment va estar liderat pel W3C 
+  però el seu desenvolupament era molt lent (HTML 4.0 va sortir el 1997). 
 
-- Dintre d’un document HTML podem trobar 3 llenguatges diferents: HTML, CSS i Javascript.
+- Dintre d’un document HTML podem trobar 3 llenguatges diferents: **HTML**, **CSS** i **Javascript**.
 
   ![Llenguatges Web](assets/img/html-css-js.png "Llenguatges Web")
 
@@ -789,9 +788,10 @@ CSS:
 
 ## 4.17. Selectors pseudoclasses
 
-Els pseudoselectors serveixen per a aplicar un estil a un element HTML que es trobi en un estat concret. És molt útil amb els elements del tipus hipervincle: <a>
+Els pseudoselectors serveixen per a aplicar un estil a un element HTML que es trobi en un estat concret. És molt útil amb els elements del tipus hipervincle: `<a>`
 
 Sintaxi:
+
 ```css
 selector:pseudo_classe {
   propietat: valor;

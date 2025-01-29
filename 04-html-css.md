@@ -815,6 +815,8 @@ a:visited {
 ```
 
 [HTMLDog Guides](https://htmldog.com/guides/)
+[Apuntes de Lenguages de Marcas - https://oscarmaestre.github.io](https://oscarmaestre.github.io/lenguajes_marcas/tema3.html)
+
 
 ## Crèdits
 

@@ -33,9 +33,9 @@ Altres extensions interessants són CSS Peek Name: [CSS Peek](https://marketplac
 
 Per tal de processar els nostres documents XML i generar una sortida amb XSLT necessitem un processador. Per instal.lar el processador Saxon SXLT a Visual Studio Code:
 
-1. Descarregar l'última versió de **Saxon Home Edition (Saxon-HE)** des de la pàgina oficial: [Saxon SXLT and XQuery Processor](https://saxon.sourceforge.net/#F11HE). No cal descarregar ni els exemples ni el codi font. 
+1. Descarregar l'última versió de **Saxon Home Edition (Saxon-HE)** des de la pàgina oficial: [Saxon SXLT and XQuery Processor](https://www.saxonica.com/welcome/welcome.xml). No cal descarregar ni els exemples ni el codi font. Descarregueu la versió Home Edition (HE) per a la plataforma Java. Necessiteu instal·lar JRE (Entorn d'execucució per a Java). Instal·leu la versió LTS de Java (per defecte us descarrega una versió menys estable).
 
-2. Descomprimir el contingt en una carpeta del vostre equip, p. ex. c:Saxon a Windows o /users/home/usuari/Saxon a Linux.
+2. Descomprimir el contingt en una carpeta del vostre equip, p. ex. c:\\Saxon a Windows o /users/home/usuari/Saxon a Linux.
 
 3. Instal.leu l'extensió **XSLT/XPath for Visual Studio Code** per a Visual Studio Code.
 
@@ -63,6 +63,8 @@ Això només ho hem de fer un cop. Ara anem a configurar una tasca de compilaci�
 Més informació:
 
 * [Running SXLT](https://deltaxml.github.io/vscode-xslt-xpath/run-xslt.html)
+* [Descargar hello.xml](/assets/xml%20samples/hello.xml)
+* [Descargar hello.xsl](/assets/xml%20samples/hello.xsl)
 
 Aquest document està llicenciat sota els termes de la [Licencia Creative Commons Attribution 4.0 International (CC BY 4.0)](LICENSE.md).
 

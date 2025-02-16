@@ -94,13 +94,13 @@ Un processador XSLT permet llegir un document XSL i a partir de les regles de tr
 
 El seu ús implica necessàriament els següents passos:
 
-1. Tenir un document XML ben definit (sintàcticament).
+1. Tenir un document XML ben definit (sintàcticament). 
 2. Validar el document mitjançant DTD o XML Schema (XSD).
-3. Crear un full d'estil XSL ben format (ha de seguir les regles XML).
-4. Vincular el document XML amb el full d'estil XSL.
+3. Crear un full d'estil XSL ben format (ha de seguir les regles XML). (veure apartat 5.4.1)
+4. Vincular el document XML amb el full d'estil XSL. (veure apartat 5.4.2)
 5. Executar la tranformació amb el processador XSLT.
 
-El processador XSLT va llegint el document XML, processant node a node el XML i aplicant les transformacions necessàries definidas en las __templates rules__ del full XSLT. Los templates son un conjunto de reglas que se aplican cuando se encuentra alguno de los nodos especificados.
+El processador XSLT va llegint el document XML, processant node a node el XML i aplicant les transformacions necessàries definidas a les __templates rules__ del full XSLT. Els __templates__ són un conjunt de regles que s'apliquen quan es troben els nodes especificats. El llenguatge que s'utilitza per navegar pels nodes del document XML és XPath.
 
 Podem treballar amb processadors off-line amb editors com __XML Copy Editor__, __Visual Studio Code__ (requereix d'un programa extern apart d'una extensió) processadors en línia com.
 
@@ -175,11 +175,11 @@ Aquest és el document XML que farem servir per a la creació de plantilles:
 </persones>
 ```
 
-Dintre del document XSL afegirem un template o regles de plantilla per indicar quina salida volem a partir de l'entrada seleccionada. L'element **xsl:template** té dues parts:
+Dintre del document XSL afegirem un template o regles de plantilla per indicar quina sortida volem a partir de l'entrada seleccionada. L'element **xsl:template** té dues parts:
 
-* Un atribut match que conté un patró que coincideix amb un o més nodes del document XML. Aquest patró está especificat en el llenguatge XPath. En aquest cas el símbol "/" indica l'arrel del document XML. Fixeu-vos que la sintaxi s'assembla deliveradament amb les rutes d'arxius del sistema operatiu Unix/Linux.
+* L'atribut **match** que conté un patró que coincideix amb un o més nodes del document XML. Aquest patró está especificat en el llenguatge XPath. En aquest cas el símbol "/" indica l'arrel del document XML. Fixeu-vos que la sintaxi s'assembla deliveradament amb les rutes d'arxius del sistema operatiu Unix/Linux.
 
-* També conté una plantilla que s'executa quan coincideix el patró. Aquesta plantilla pot contenir part d'un document html, xml o caràcters de texte.
+* Tot el contingut que escrivim dintre del template es transmet a la sortirda. Aquesta plantilla pot contenir part d'un document html, xml o caràcters de texte. Dintre d'aquest contingut també inclourem els elements xsl que permetran obtenir informació dels nodes XML i incoporar-la al contingut existent en la plantilla.
 
 ```xml
 <?xml version=“1.0” encoding=“UTF-8”?>

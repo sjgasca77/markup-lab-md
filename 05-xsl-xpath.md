@@ -89,8 +89,7 @@ XSLT està inspirat en DSSSL, l'equivalent a XSLT en l'antic SGML. Actualment (2
 
 Un processador XSLT permet llegir un document XSL i a partir de les regles de transformació sobre un document XML, permet generar un altre document formatejat tipus XML, HTML o texte.
 
-<img src="assets/img/5-4xlst-processor-diagram.png" height="438" width="231">
-
+![XSLT Processor](assets/img/5-4-what-is-xlst-processor.png "XSLT Processor")
 
 El seu ús implica necessàriament els següents passos:
 

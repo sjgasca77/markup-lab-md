@@ -1,12 +1,130 @@
-# Tema 6. XQuery
+# Tema 6. Xpath i XQuery
 
-## 6.1. Introducció
+## 6.1 XPath
 
-### **6.1.1. Base de dades**
+XPath és un llenguatge no XML que permet recórrer i seleccionar els nodes d'un document XML.
+On s'utilitza XPath? 
+ - XPath es fa servir a XSLT dintre de l'atribut **select** de les plantilles XSL
+ - És un subconjunt de XQuery. XQuery inclou XPath i afegeix algunes sentències semblants a les d'alguns llenguatges de programació: let, for...
+
+Farem servir el següent exemple per indicar els nodes seleccionats amb XPath:
+
+```xml
+<?xml version="1.0" encoding="windows-1250"?>
+<classe>
+  <estudiant id = "393">
+  <nom>Xavier</nom>
+  <cognoms>Pi Fuster</cognoms>
+  <nota>85</nota>
+  <aficions>
+    <aficio>Lectura</aficio>
+    <aficio>Cinema</aficio>
+  </aficions>
+  <naixement>
+    <dia>3</dia>
+    <mes>5</mes>
+    <any>1990</any>
+  </naixement>
+  </estudiant>
+  <!-- Més estudiants -->
+</classe>
+```
+* [Descarregar estudiants.xml](/assets/xml%20samples/estudiants.xml)
+
+A XPath hi ha 7 tipus de nodes:
+
+* El **node document** o **node arrel** (un per document). A XPath el node arrel conté tot el document, no només l'arrel del document XML. El node arrel conté almenys un fill, l'arrel del document XML. També conté els comentaris del document XML, les instruccions de processament (PI)-comencen per &lt;?-. El node arrel s'especifica mitjantçant el simbol /.
+
+* Els **nodes element**. Tots els elements del document XML es poden seleccionar amb XPath. Per seleccionar el contingut dels elements &lt;nom&gt;. a xslt fem servir <xsl:value-of select="nom">. El valor de l'element és la concatenació del texte de tots els elements nom que hi ha al document i tots els seus fills.
+
+* **nodes atribut**. Tot element atribut té un element pare, però no succeeix a l'inrevés. Els elements fills d'un node son el texte, els subelements i els comentaris però no els atributs. Per seleccionar un atribut, fem servir l'operador @. Per exemple, per seleccionar l'atribut id de l'element estudiant, l'expressió XPath seria /classe/estudiant/@id
+
+* **nodes de text**. Contenen el texte d'un element XML. Les entitats es resolen abans d'enviar el node a XPath.
+
+* **nodes comentaris**. Contenen tot el texte entre els caracters &lt;!-- i --&gt;.
+
+* **nodes de processament d'instruccions (PI)**. Contenen tot el texte entre els caracters &lt;? ?&gt; (sense incloure ?&gt;).
+
+* **nodes espai de noms**. No es fan servir gairebé mai als fulls XSLT. Existeixen per a benefici del processador XLST.
+
+Un dels usos més comuns de XPath és crear rutes de localització. Per exemple, el patró **/classe/estudiant/aficions** descriu l'ubicació dintre del XML que volem processar.
+
+Les rutes poden ser absolutes o relatives (si ja hem seleccionat una prèviament). Les rutes absolutes comencen pel simbol /.
+
+## 6.1.1 Predicats
+
+Els predicats són filtres que restringeixen els nodes seleccionats per una expressió XPath. Les condicions s'expressen amb claudàtors. Alguns exemples:
+
+| Expressió                                   | Significat                                                          |
+|:--------------------------------------------|:--------------------------------------------------------------------|
+| /classe/estudiant[nom="Daniel"]              | Retorna totes les dades de l’estudiant de nom Daniel en format XML. |
+| /classe/estudiant[nom="Daniel"]/naixement    | Retorna la data de naixement de l’estudiant de nom Daniel en format XML. |
+| /classe/estudiant[@id<500]                   | Retorna les dades en format XML de tots els estudiants amb id més petit que 500.|
+| /classe/estudiant[aficions/aficio="Lectura"]/nom | Retorna en format XML els noms de tots els estudiants aficionats a la lectura. |
+| /classe/estudiant[aficions/aficio="Lectura"]/nom/string() | Retorna els noms (sense el format XML) de tots els estudiants aficionats a la lectura. |
+| /classe/estudiant[nota>90 or @id<400]/nom/string() | Retorna el nom (sense format XML) de tots els alumnes amb una nota major a 90 o un identificador inferior a 400. |
+| /classe/estudiant[nom="Daniel" or nota>90]/nom/string() | Retorna el nom (sense format XML) de tots els alumnes anomenats Daniel o amb una nota superior a 90. |
+| /classe/estudiant[naixement/mes=5 and naixement/any<1990]/nom/string() | Retorna el nom (sense format XML) de tots els alumnes nascuts el mes de maig i abans de 1990 |
+
+## 6.1.2 Funcions
+
+Conjuntament amb els predicats es poden utilitzar funcions. Per exemple:
+
+* count(x): compta el nombre d’elements d’x; x és un camí XPath absolut o relatiu. En el segon cas, sol indicar un element o un atribut d’un node.
+
+*  string(): passen a cadena de caràcters l’element o atribut; es posa a continuació de l’últim element de l’expressió XPath.
+
+Exemples d’utilització d’aquestes funcions:
+
+| Expressió                                   | Significat                                                          |
+|:--------------------------------------------|:--------------------------------------------------------------------|
+| count(/classe/estudiant)                    | A l’exemple, retorna 3, ja que només hi ha 3 estudiants. |
+| /classe/estudiant/aficions/count(aficio)    | A l’exemple retorna 2 3 2, que és el nombre d’aficions de cadascun dels estudiants. |
+| /classe/estudiant/nom/string()              | A l’exemple retorna Daniel Vanessa Xavier que són els noms de cadascun dels estudiants (sense /string() retornava el mateix, però cada nom anava delimitat per <nom>... </nom> |
+| /classe/estudiant/@id/string()              | A l’exemple retorna 393 493 593, que són els identificadors de cadascun dels estudiants (sense /string() retornava el mateix, però entre comets i precedit del text id= ) |
+
+## 6.1.3 Altres exemples avançats
+
+XPath permet navegar per l'arbre del document XML (per exemple a partir d'un node podem obtenir l'element superior) i seleccionar múltiples elements a la vegada. Aquí tenim alguns exemples d'operadors especials que es poden utilitzar a XPath.
+
+* Doble barra (//)
+
+Selecciona nodes que coincideixen independentment de la seva posició en el document XML. La següent expressió selecciona tots els nodes ```<aficio>``` del document:
+
+```//aficio```
+
+* Asterisc (*)
+
+Selecciona qualsevol element. Per exemple, per selecciona tots els fills directes de l'element estudiant, ho indicariem amb:
+
+```/classe/estudiant/*```
+
+* Punt (.)
+
+Selecciona el nom dels estudiants amb nota superior a 90, però només si el nom és exactament "Xavier".
+
+```/classe/estudiant[nota>90]/nom[.="Xavier"]```
+
+* Dos punts (..):
+
+Selecciona els nodes avis (estudiant) de totes les aficions que són "Cinema".
+
+```//aficio[.="Cinema"]/../..```
+
+* Combinació avançada amb @*:
+
+Selecciona tots els atributs d'un node.
+
+```/classe/estudiant[@*]```
+
+
+## 6.2.1 Introducció a les Bases de dades i XQuery
+
+### **6.2.1. Base de dades**
 
 Una base de dades (BBDD) és una eina que permet organitzar les dades que tenen algun tipus de relació entre sí, típicament emmagatzemada a un ordinador. Una base de dades és controla normalment mitjantçant un sistema gestor de base de dades (SGDB) o DBMS en anglés.
 
-### **6.1.2. Tipus de BBDD**
+### **6.2.2. Tipus de BBDD**
 
 Hi ha molts tipus de BBDD segons el model lògic on es descriuen les dades. 
 
@@ -20,17 +138,13 @@ En aquest model no existeix jerarquia, les dades s'emmagatzemen en tuples (una f
 
 Alguns exemples de BBDD relacionals a nivell comercial són Oracle (primer SBDG comercial) o Microsoft SQL Server. En l'àmbit Open Source tenim postgreSQL o mariaDB/mySQL.
 
-#### **BBDD transaccional**
-
-Poc comuns. Es fan servir a les entitats bancàries per a la transferència de diners. Permeten enviar informació a gran velocitat.
-
 #### **BBDD noSQL**
 
 Són bases de dades no relacionals. Algunes característiques:
 
 * No fan servir el lleguatge SQL, les dades s'emmagatzemen en parells clau-valor. Els registres s'emmagatzemen com a documents (típicament JSON). Un exemple seria el sistema mongoDB.
 
-### **6.1.2. SGDB**
+### **6.2.3. SGDB**
 
 L'ús dels SGBD és molt comú i té alguns avantatges respecte a l'ús de fitxers:
 
@@ -54,7 +168,7 @@ Anomenem B2B (Bussiness to Bussiness) a les transaccions comercials entre empres
 
 Per exemple, les empreses amb ERPs com SAP fan servir el document IDoc (Intermediate Document) que permet tranferir informació entre bases de dades. Un IDoc pot representar una factura, una comanda de vendes, una entrada al magatzem, una entrega, etc.
 
-## 6.2. Bases de dades XML
+## 6.3. Bases de dades XML
 
 
 Un document XML és pot considerar una base de dades (BBDD), doncs la informació està guardada de manera estructurada, és a dir organitzada o ordenada dintre del document. Podem dir que una base de dades XML (document) permet emmagatzemar dades en format XML (format estructurat).
@@ -63,7 +177,7 @@ Les operacions que normalment es poden fer amb una BBDD com inserir, modificar o
 
 Les bases de dades XML són una bona solució si la informació està estructurada de forma jeràrquica i necessitem un accés lleuger a la BBDD. Per actualitzar una columna a XML hem d'actualitzar tot el document XML. Per tant, si les dades són actualitzades molt freqüentment i els documents XML tenen moltes files (o registres) pot ser més eficients guardar les dades en una BBDD relacional. Per altra banda, si actualitzem documents petits i pocs documents al mateix temps, XML també pot ser eficient.
 
-### 6.2.1. Sistemes d'emmagatzematge de la informació mitjançant XML
+### 6.3.1. Sistemes d'emmagatzematge de la informació mitjançant XML
 
 Existeixen tres formes d'emmagatzemament de la informació mitjançant XML:
 
@@ -108,7 +222,7 @@ Comparativa de BBDD XML natives:
 | MarkLogic      | Comercial     | C++               | No/Parcial/Si         | Propietari    | Si        | Si        |
 | Sedna         | Apache 2.0    | C++               | No/?/Si               | Si            | No        | ?         |
 
-## 6.3. SQL i XQuery
+## 6.4. SQL i XQuery
 
 SQL (Structured Query Language) és un llenguatge declaratiu. A diferència dels llenguatges imperatius, li indiquem les dades que volem, no com obtenir-les físicament del disc. SQL serveix per accedir i manipular BBDD relacionals:
 
@@ -152,7 +266,7 @@ Per altra banda:
 * XQuery recorre dades jeràrquiques i SQL dades relacionals.
 * SQL permet eliminar i modificar dades, XQuery té dificultat a l'hora d'esborrar o editar dades.
 
-## 6.4. XQuery
+## 6.5. XQuery
 
 Algunes consideracions inicials:
 
@@ -210,7 +324,7 @@ doc("catalog.xml") //catalog/cd[./artist eq "Bob Dylan"]
 
 [Operadors XPath (w3schools)](https://www.w3schools.com/xml/xpath_operators.asp)
 
-## 6.5. Expressions FLWOR
+## 6.6. Expressions FLWOR
 
 FLWOR és un acronim de "For, Let, Where, Order by, Return". És una més potent que les vistes amb XPath per seleccionar nodes.
 
@@ -370,13 +484,13 @@ posem
 return <li>{data($x)}</li>
 ```
 
-## 6.6. Actualització de dades amb XQuery
+## 6.7. Actualització de dades amb XQuery
 
 Encara que XQuery permet seleccionar dades, la versió XQuery 1.0 no té funcions per insertar, esborrar o actualitzar dades d'un XML. Patrick Lehti va desenvolupar un sistema per possibilitar aquestes funcions, encara que el consorci W3C, posteriorment, va proposar l'extensió XQUF (XQuery Update Facilites) que ja està implementada a partir de la versió 7.1 de BaseX. La versió que farem servir de BaseX és la 9.0.1 (2022), així que farem servir la implementació XQUF.
 
 En els exemples que mostrarem a continuació **element** és un fragment XML i **ubicació** és una expressió XPath.
 
-### 6.1 Insercio d'un element
+### 6.7.1 Insercio d'un element
 
 La sintaxi general amb XQUF és:
 
@@ -397,7 +511,7 @@ insert node <aficio>Gastronomia</aficio> as last into /classe/estudiant[@id="393
 ```
 L'atribut id pot anar o sense cometes
 
-### 6.2 Esborrat d'un element
+### 6.7.2 Esborrat d'un element
 
 La sintaxi amb XQUF és:
 
@@ -421,7 +535,7 @@ for $a in /classe/estudiant[@id="393"]/aficions/aficio[.="Lectura"]
 return delete node $a
 ```
 
-### 6.3 Modificar un element
+### 6.7.3 Modificar un element
 
 En el cas de modificació, podem modificar l'element sencer o el contingut de l'element especificat.
 
@@ -451,7 +565,7 @@ for $n in /classe/estudiant[@id="393"]/nom
 return replace node $n with <nom>Dani</nom>
 ```
 
-### 6.4 Restriccions per a la modificació massiva.
+### 6.7.4 Restriccions per a la modificació massiva.
 
 Als apartats anteriors, el paràmetre ubicacio no sempre pot fer referència a més d'un element. A continuació es mostren les restriccions per a cada sentencia.
 
@@ -470,7 +584,7 @@ for $a in /classe/estudiant/aficions/aficio[.="Esport"]
 return replace node $a with <aficio>Basquet</aficio>
 
 
-### 6.5 Enllaços d'interés
+### 6.8 Enllaços d'interés
 
 [XQuery Update - BaseX Documentation](https://docs.basex.org/wiki/XQuery_Update)
 

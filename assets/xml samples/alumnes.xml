@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="windows-1250"?>
+<classe>
+    <estudiant id="393">
+        <nom>Xavier</nom>
+        <cognoms>Pi Fuster</cognoms>
+        <nota>85</nota>
+        <aficions>
+            <aficio>Lectura</aficio>
+            <aficio>Cinema</aficio>
+        </aficions>
+        <naixement>
+            <dia>3</dia>
+            <mes>5</mes>
+            <any>1990</any>
+        </naixement>
+    </estudiant>
+    <estudiant id="493">
+        <nom>Vanessa</nom>
+        <cognoms>Pou Salat</cognoms>
+        <nota>95</nota>
+        <aficions>
+            <aficio>Lectura</aficio>
+            <aficio>Esport</aficio>
+            <aficio>Cinema</aficio>
+        </aficions>
+        <naixement>
+            <dia>3</dia>
+            <mes>1</mes>
+            <any>1995</any>
+        </naixement>
+    </estudiant>
+    <estudiant id="593">
+        <nom>Xavier</nom>
+        <cognoms>Fuster Cantó</cognoms>
+        <nota>90</nota>
+        <aficions>
+            <aficio>Esport</aficio>
+            <aficio>Cinema</aficio>
+        </aficions>
+        <naixement>
+            <dia>5</dia>
+            <mes>5</mes>
+            <any>1989</any>
+        </naixement>
+    </estudiant>
+</classe>

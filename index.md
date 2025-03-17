@@ -9,18 +9,17 @@ site_name: M4 llenguatges de marques
 # UF2 - Àmbits d'aplicació XML
 ## [5. Conversió de documents: XSL](05-xsl-xpath.md) 
 ## [6. Emmagatzematge d’informació amb XML: Xpath i XQuery](06-xquery.md) 
-
-# UF3 - Digitalització aplicada als entorns productius (NOVA)
 ## [7. Llenguatges lleugers de marques: Markdown i JSON](07-markdown_i_json.md)
-## [9. Digitalització aplicada als entorns productius](09-digitalitzacio.md)
+## [8. Sindicació de continguts: RSS](08-rss.md)
 
-# UF4 - Sistemes de gestió d'informació empresarial
-## [8. ERPs](08-erps.md) 
+# UF3 - Sistemes de gestió d'informació empresarial
+## [10. ERPs](10-erps.md) 
 
+# UF4 - Digitalització aplicada als entorns productius (NOVA)
+## [11. Digitalització aplicada als entorns productius](11-digitalitzacio.md)
 
 ## [Activitats](10-activitats.md) 
 
 # Annexos
 ## [Annexos](11-annexos.md) 
 
-## [Sindicació de continguts: RSS](A0-rss.md)

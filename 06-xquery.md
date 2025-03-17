@@ -4,8 +4,8 @@
 
 XPath és un llenguatge no XML que permet recórrer i seleccionar els nodes d'un document XML.
 On s'utilitza XPath? 
- - XPath es fa servir a XSLT dintre de l'atribut **select** de les plantilles XSL
- - És un subconjunt de XQuery. XQuery inclou XPath i afegeix algunes sentències semblants a les d'alguns llenguatges de programació: let, for...
+- A XSLT, dintre de l'atribut **select** de les plantilles XSL.
+- XQuery inclou XPath i afegeix algunes sentències semblants a les d'alguns llenguatges de programació: let, for...
 
 Farem servir el següent exemple per indicar els nodes seleccionats amb XPath:
 
@@ -31,7 +31,7 @@ Farem servir el següent exemple per indicar els nodes seleccionats amb XPath:
 ```
 * [Descarregar estudiants.xml](/assets/xml%20samples/estudiants.xml)
 
-A XPath hi ha 7 tipus de nodes:
+XPath fa la següent classificació de 7 tipus de nodes:
 
 * El **node document** o **node arrel** (un per document). A XPath el node arrel conté tot el document, no només l'arrel del document XML. El node arrel conté almenys un fill, l'arrel del document XML. També conté els comentaris del document XML, les instruccions de processament (PI)-comencen per &lt;?-. El node arrel s'especifica mitjantçant el simbol /.
 
@@ -49,7 +49,7 @@ A XPath hi ha 7 tipus de nodes:
 
 Un dels usos més comuns de XPath és crear rutes de localització. Per exemple, el patró **/classe/estudiant/aficions** descriu l'ubicació dintre del XML que volem processar.
 
-Les rutes poden ser absolutes o relatives (si ja hem seleccionat una prèviament). Les rutes absolutes comencen pel simbol /.
+Les rutes poden ser absolutes o relatives (si ja hem seleccionat un node prèviament). Les rutes absolutes comencen pel simbol /.
 
 ## 6.1.1 Predicats
 
@@ -71,8 +71,7 @@ Els predicats són filtres que restringeixen els nodes seleccionats per una expr
 Conjuntament amb els predicats es poden utilitzar funcions. Per exemple:
 
 * count(x): compta el nombre d’elements d’x; x és un camí XPath absolut o relatiu. En el segon cas, sol indicar un element o un atribut d’un node.
-
-*  string(): passen a cadena de caràcters l’element o atribut; es posa a continuació de l’últim element de l’expressió XPath.
+* string(): passen a cadena de caràcters l’element o atribut; es posa a continuació de l’últim element de l’expressió XPath.
 
 Exemples d’utilització d’aquestes funcions:
 
@@ -85,7 +84,7 @@ Exemples d’utilització d’aquestes funcions:
 
 ## 6.1.3 Altres exemples avançats
 
-XPath permet navegar per l'arbre del document XML (per exemple a partir d'un node podem obtenir l'element superior) i seleccionar múltiples elements a la vegada. Aquí tenim alguns exemples d'operadors especials que es poden utilitzar a XPath.
+XPath permet navegar per l'arbre del document XML. De la mateixa manera que podem navegar pels directoris del sistema d'arxius de Linux, també podem, a partir d'un node, obtenir l'element superior. XPath també seleccionar múltiples elements a la vegada (*). Exemples d'operadors especials que es poden utilitzar a XPath:
 
 * Doble barra (//)
 
@@ -278,7 +277,7 @@ Algunes consideracions inicials:
 
 **Extracció de dades**:
 
-* Per extreure totes les dades d'un document: 
+* Per extreure totes les dades d'un document utilitzarem la funció **doc()**: 
 
 Local:
 ```xquery
@@ -302,10 +301,9 @@ Exemple: per accedir a TOTS els cd’s del document catalog.xml:
   doc("catalog.xml")/catalog/cd
 ```
 
-**Comparació**
+**Filtres**
 
-Mitjançant operadors de comparació en els elements i els
-arguments d’un arbre. Utilitzem XPath.
+Mitjançant operadors de comparació podem aplicar filtres a la ruta XPath.
 
 ```xquery
 doc("document.xml")//element_de_cerca[element_filtre="argument"]
@@ -316,7 +314,7 @@ Exemple:
 doc("catalog.xml")//catalog/cd [price>=10]
 ```
 
-**Comparació de strings**
+**Comparació de cadenes**
 
 ```xquery
 doc("catalog.xml") //catalog/cd[./artist eq "Bob Dylan"]
@@ -326,17 +324,18 @@ doc("catalog.xml") //catalog/cd[./artist eq "Bob Dylan"]
 
 ## 6.6. Expressions FLWOR
 
-FLWOR és un acronim de "For, Let, Where, Order by, Return". És una més potent que les vistes amb XPath per seleccionar nodes.
+FLWOR és un acronim de "For, Let, Where, Order by, Return". És una eina més potent que XPath per seleccionar nodes i processar-los.
 
 * **For** - selecciona una seqüència de nodes, guardant-los en una variable.
 * **Let** - Uneix una seqüència a una variable, és opcional.
-* **Where** - Filtra els nodes guardats a la variable del *for* o del *let*
-* **Order by** - Ordena els nodes
-* **Return** - Que retorna (s'evalua una vegada per cada node)
+* **Where** - Filtra els nodes guardats a la variable del *for* o del *let*.
+* **Order by** - Ordena els nodes guardats a la variable del *for* o del *let*.
+* **Return** - Que retorna (s'evalua una vegada per cada node).
 
-Utilitza variables amb el simbol dòlar ($).
+Algunes consideracions:
 
-Aquestes dues expressions XPath i FLWOR són equivalents:
+- XQuery no té la capacitat nativa per actualitzar dades (només consulta). Per actualitzar dades (insert, update i delete) s'utilitza l'extensió XQUF que ja està incorporada a Basex i veurem més endavant.
+- Les expressions XPath es poden convertir a XQuery. Aquestes dues expressions XPath i FLWOR són equivalents:
 
 XPath
 
@@ -351,6 +350,9 @@ for $cd in doc(“catalog.xml”)//catalog/cd
   return $cd/artist
 
 ```
+
+- Amb Xquery es declaren variables amb el simbol dòlar ($).
+- Es pot fer una traducció d'una sentència Xquery a SQL. Exemple:
 
 Comparació SQL i FLWOR
 
@@ -374,8 +376,7 @@ for $var
 
 **FOR**
 
-En aquest cas es mostra els artistes que tenen un cd amb un preu
-superior a 10 i més petit a 15.
+La sentència for va iterant per cada un dels nodes seleccionats amb l'expressió XPath i els guarda a la variable definida ($cd). En aquest cas es mostra els artistes que tenen un cd amb un preu superior a 10 i més petit a 15.
 
 ```xquery
 for $cd in doc(“catalog.xml”)//catalog/cd
@@ -385,7 +386,7 @@ for $cd in doc(“catalog.xml”)//catalog/cd
 
 **LET**
 
-Podem assignar una nova variable, per mostrar els resultats.
+Let permet crear una variable per assignar valors que es poden utilitzar en una altra consulta. 
 
 ```xquery
 for $cd in doc(“catalog.xml”)//catalog/cd
@@ -394,8 +395,34 @@ where $cd/price<10
 return $n
 ```
 
+**WHERE**
+
+Where permet filtrar els resultats abans de mostrar-los amb la sentència return. És equivalent al filtre que s'utilitza dintre dels claudàtors a les expressions XPath. Per exemple:
+
+```xquery
+...
+where $cd[price>10] and $cd[price<15]
+....
+```
+
+El filtre representa una expressió booleana que ha de donar com a resultat un valor booleà (vertader o fals). És a dir, tota l'expressió s'ha d'avaluar i si es compleix la condició (vertader), aquest resultat es mostra amb la sentència **return**.
+
+**ORDER BY**
+
+És equivalent a la sentència ORDER BY a SQL. Permet ordenar els resultats una vegada filtrats amb la sentència **where**. En el següent exemple ordenem els artistes per nom.
+
+```xquery
+order by $variable [ascending, descending]
+```
+
+```xquery
+for $a in doc("catalog.xml")//catalog/cd/artist
+  order by $a descending
+  return $a
+```
+
 **RETURN**
-Si volem tornar més d’un valor podem fer:
+Return mostra les dades per pantalla. Per defecte només podem retornar un valor. Si volem tornar més d’un valor podem posar el valors entre parèntesi:
 
 ```xquery
 return $cd/(artist/name, Title)
@@ -408,18 +435,6 @@ let $codigo:=$cd/artist/cod_Artist
 return concat($Titulo, “ “, $nomArtis,” “,$codigo)
 ```
 
-**ORDER**
-
-En aquest cas ordenem els artistes per nom.
-```xquery
-order by $variable [ascending, descending]
-```
-
-```xquery
-for $a in doc("catalog.xml")//catalog/cd/artist
-  order by $a descending
-  return $a
-```
 
 ## De FLWOR a HTML
 
@@ -427,7 +442,7 @@ Podem realitzar consultes i guardar els resultats en format HTML. Ho podem fer t
 
 Indicarem la part del codi FLWOR entre claus “{“ “}”.
 
-Si volem afegir, per exemple, codi CSS utilitzarem {{ i }}, en la declaració CSS, en compte d’una sola { i }.
+Si volem afegir codi CSS utilitzarem {{ i }}, en la declaració CSS, en compte d’una sola { i }.
 
 ```xquery
 <ul>
@@ -486,7 +501,7 @@ return <li>{data($x)}</li>
 
 ## 6.7. Actualització de dades amb XQuery
 
-Encara que XQuery permet seleccionar dades, la versió XQuery 1.0 no té funcions per insertar, esborrar o actualitzar dades d'un XML. Patrick Lehti va desenvolupar un sistema per possibilitar aquestes funcions, encara que el consorci W3C, posteriorment, va proposar l'extensió XQUF (XQuery Update Facilites) que ja està implementada a partir de la versió 7.1 de BaseX. La versió que farem servir de BaseX és la 9.0.1 (2022), així que farem servir la implementació XQUF.
+Encara que XQuery permet seleccionar dades, la versió XQuery 1.0 no té funcions per insertar, esborrar o actualitzar dades d'un XML. Patrick Lehti va desenvolupar un sistema per possibilitar aquestes funcions, encara que el consorci W3C, posteriorment, va proposar l'extensió XQUF (XQuery Update Facilites) que ja està implementada a BaseX. La versió que farem servir de BaseX és la 9.0.1 (2022), així que farem servir la implementació XQUF.
 
 En els exemples que mostrarem a continuació **element** és un fragment XML i **ubicació** és una expressió XPath.
 

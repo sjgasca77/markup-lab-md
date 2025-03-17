@@ -1,6 +1,6 @@
-# Tema 8. Sistemes de planificació empresarial (ERPs)
+# Tema 10. Sistemes de planificació empresarial (ERPs)
 
-## 8.1 Introducció
+## 10.1 Introducció
 
 Un sistema de planificació empresarial o Enterprise Resource Planning (ERP) són un tipus de software dissenyat per ajudar a les empreses a gestionar els seus processos de negoci i integrar tots els sistemes i dades en un sol sistema centralitzat.
 
@@ -23,51 +23,51 @@ El sistema ERP més utilitzat a nivell empresarial és SAP. SAP és una empresa 
 
 Respecte els ERPs opensource més coneguts tenim [Odoo](https://www.odoo.com/es_ES) i [Openbravo](https://www.openbravo.com/es) [Wiki](http://wiki.openbravo.com/wiki/Installation/Ubuntu)
 
-## 8.2 Mòduls d'un ERP
+## 10.2 Mòduls d'un ERP
 
 Tal com hem comentat, un ERP controla diversos processos de negoci, modelant cadascuna de les fases de cada departament de l'empresa. Els principals mòduls són els següents. Els mòduls es poden dividir en dos tipus, mòduls financers i mòduls logístics.
 
 ![Mòduls d'un ERP](assets/img/8-2-SAP-R3-modules.jpg)
 
-### 8.2.1. Finances
+### 10.2.1. Finances
 
 Aquest és el mòdul principal i permet tenir un llibre de contabilitat elèctronic (deure, haver, moviments). És el nucli del ERP doncs tota la resta de mòduls fan apunts contables automàticament en algunes de les operacions que duun a terme.
 
 Té altres submoduls com Tesoreria (gestió de l'efectiu), amortitzacions, etc.
 
-### 8.2.2. Controlling
+### 10.2.2. Controlling
 
 Aquest és un mòdul financer amb el propòsit d'analitzar els gastos e ingresos dintre de l'empresa. Per exemple, s'encarrega de calcular el cost d'un producte tenint en compte els costos de fabricació: materia prima, mà d'obra directa e indirecta. S'encarrega de l'anàlisi de la rentabilidad per segments de mercat, productes, zones geográfiques, canals vendes. Rentabilitat: ingresos - despeses.
 
-### 8.2.3. Vendes
+### 10.2.3. Vendes
 
 Permet dur a terme tot el procés des de que el client fa la comanda fins que el producte arriba a la seva casa. Inclou la gestió de documents com ofertes, gestió del crèdi, comanda de venda, document d'entrega, albarà i factura. A continuació s'adjunta el fluxe general per al procés de vendes a un ERP.
 
 ![Fluxe de vendes](assets/img/8-3-Flujo de ventas.png)
 
-### 8.2.4. Compres
+### 10.2.4. Compres
 
 S'encarrega de l'aprovisionament de les matèries primes per poder fabricar el producte a vendre, màquines, consumibles, etc. També permet fer una gestió automàtica de les compres segons l'stock, el temps de reaprovisionament i el volum de vendes (MRP automàtic). A continuació s'adjunta el fluxe general per al procés de compres a un ERP.
 
 ![Fluxe de compres](assets/img/8-4-Flujo de compras.png)
 
-### 8.2.5. Logística
+### 10.2.5. Logística
 
 S'encarrega de les gestions relacionades amb els matgatzem. Permet gestionar l'stock, moviments entre magatzems inventaris, etc.
 
-### 8.2.6. Producció
+### 10.2.6. Producció
 
 És un dels mòduls més importants, doncs s'encarrega de gestionar el procés productiu. Té documents com el full de ruta (passos per a fabricar un producte determinat a la cadena de producció), el BOM (bill of materials), cost del producte, gestió dels materials...
 
-### 8.2.7. Recursos Humans
+### 10.2.7. Recursos Humans
 
 Tracta amb tots els processos relacionats amb els empleats: contratació, formació, control del temps (horaris), despeses de viatge, remuneracions (càlcul de la nòmina), gestió del talent, etc.
 
-### 8.2.8. Qualitat 
+### 10.2.10. Qualitat 
 
 Molt relacionat amb el mòdul de producció. S'encarrega de gestionar els lots de producció, fer anàlisis del productes per verificar que compleixen una sèrie d'estàndars o normes, que tenen les característiques físiques o químiques necessàries, etc.
 
-## 8.3 CRM
+## 10.3 CRM
 
 Un CRM (Customer relationship management) o gestor de relacions amb els clients és un sistema de gestió d'informació que permet centralitzar en una única base de dades totes les interaccions entre una empresa i els seus clients, principalment en tres àrees:
 
@@ -88,7 +88,7 @@ Un dels sistemes CRM més coneguts és Siebel, una empresa nordamericana fundada
 
 Un altre sistema CRM basat en el núvol es Salesforce, creat per un antic executiu d'Oracle.
 
-## 8.3 Bussiness Intelligence (BI)
+## 10.3 Bussiness Intelligence (BI)
 
 Un altre software molt relacionat amb els ERPs són les eines de Bussiness Intelligence (BI). Els ERPs generalment funcionen sobre un sistema de base de dades relacionals (Oracle, Microsoft SQL Server) i s'encarreguen de les transaccions OLTP. Els sistemes OLTP (Online Transaction Processing) són sistemes que tenen una resposta immediata al usuari. Per exemple, els sistemes que impliquen processos de producció, de vendes, logística no poden trigar més d'uns segons perquè hi ha altres processos que depenen d'ells.
 
